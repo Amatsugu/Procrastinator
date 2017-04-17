@@ -1,2 +1,2 @@
 # Procrastinator
-A agenda planning application
+An agenda planning application
