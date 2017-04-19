@@ -87,6 +87,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrap\NancyBootstrap.cs" />
+    <Compile Include="Bootstrap\RazorConfig.cs" />
+    <Compile Include="Bootstrap\RootProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

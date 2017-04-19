@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nancy.Hosting.Self;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,9 @@ namespace Procastinator
 	{
 		static void Main(string[] args)
 		{
+			var host = new NancyHost(new HostConfiguration() { UrlReservations = new UrlReservations() { CreateAutomatically = true } }, new Uri("http://localhost:4321"));
+			host.Start();
+			Console.ReadLine();
 		}
 	}
 }
