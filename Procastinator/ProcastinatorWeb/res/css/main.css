@@ -1,0 +1,236 @@
+@import url(vars.css);	
+
+#wrapper
+{
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+#wrapper #logoBox
+{
+	position: absolute;
+	left: 5%;
+	top:20px;
+	display: flex;
+	height: 64px;
+}
+
+#wrapper #logoBox #icon
+{
+	height: inherit;
+	width: 64px;
+}
+
+#wrapper #logoBox #text
+{
+	height: inherit;
+	padding-left: 10px;
+	line-height: 64px;
+	font-size: 32px;
+	color: var(--logoTextColor);
+	font-family: var(--font);
+	font-weight: var(--logoFontW);
+}
+
+#wrapper #background
+{
+	background: var(--bgColor1);
+	left: 0px;
+	top: 0px;
+	height: inherit;
+	width: inherit;
+}
+
+#wrapper #mainPanel
+{
+	--offset:calc(20px + 64px + 10px);
+	background-color: var(--bgColor2);
+	height: calc(95% - var(--offset) - 20px);
+	width: calc(90% - 20px);
+	left: 5%;
+	top: var(--offset);
+	position: absolute;
+	border-radius: calc(2 * var(--borderRadius));
+	display: grid;
+	padding: 10px;
+	grid-template-columns: auto 10px auto;
+	grid-template-rows: 50px 30px auto;
+	font-family: var(--font);
+	font-weight: var(--bodyFontW);
+}
+
+#mainPanel #headerPanel
+{
+	display: grid;
+	grid-template-columns: auto .9fr auto;
+	height: 50px;
+	line-height: 50px;
+	grid-row: 1 / 1;
+	grid-column: 1 / span 3;
+	color: var(--titleColor);
+	font-size: 25px;
+	font-family: var(--font);
+	font-weight: var(--headerFontW);
+}
+
+#headerPanel #weatherPanel
+{
+	grid-column: 1;
+}
+
+#headerPanel #notifyPanel
+{
+	grid-column: 2;
+}
+
+#headerPanel #datePanel
+{
+	grid-column: 3;
+	text-align: right;
+}
+
+#mainPanel #calHeader
+{
+	display: grid;
+	grid-template-columns: repeat(7, auto);
+	grid-template-rows: 30px;
+	grid-row: 2 / 2;
+	grid-column: 1 / 1;
+	background-color: var(--titleBgColor);
+	border-radius: var(--borderRadius);
+	height: calc(100% + 20px);
+	font-family: var(--font);
+	font-weight: var(--headerFontW);
+}
+
+#mainPanel #calHeader .calDayHead
+{
+	color: var(--calDayColor);
+	text-align: center;
+	line-height: 30px;
+}
+
+#mainPanel #calPanel
+{
+	--padding:10px;
+	display: grid;
+	grid-template-columns: repeat(7, auto);
+	border-radius: var(--borderRadius);
+	overflow: hidden;
+	grid-row: span 3;
+	grid-column: 1;
+}
+
+#mainPanel #calPanel .calTile
+{
+	background-color: var(--calBodyColor);
+	padding: 0;
+}
+
+#mainPanel #calPanel .calCurrentTile
+{
+	background-color: var(--calCurrentTileColor);
+	font-weight: var(--headerFontW);
+}
+
+#mainPanel #calPanel .calOtherTile
+{
+	background-color: var(--calOtherTileColor);
+	color: var(--calOtherTileText);
+}
+
+#mainPanel #calPanel .calTile .day
+{
+	position: relative;
+	top: 10%;
+	left: 10%;
+	font-size: 30px;
+	display: block;
+}
+
+#mainPanel #sidePanelTitle
+{
+	border-radius: var(--borderRadius);
+	height: 50px;
+	line-height: 30px;
+	padding-left: 10px;
+	font-family: var(--font);
+	font-weight: var(--headerFontW);
+	color: var(--titleColor);
+	background-color: var(--titleBgColor);
+	grid-column: 3;
+	grid-row: 2;
+}
+
+#mainPanel #sidePanel
+{
+	background-color: var(--calBodyColor);
+	overflow-x: hidden;
+	overflow-y: scroll;
+	border-radius: var(--borderRadius);
+	grid-column: 3;
+	grid-row: span 3;
+	align-self: stretch;
+	/*padding-top: 10px;*/
+}
+
+#mainPanel #sidePanel::-webkit-scrollbar
+{
+	border-top-right-radius: var(--borderRadius);
+	border-bottom-right-radius: var(--borderRadius);
+	background-color: var(--scrollBarBgColor);
+}
+#mainPanel #sidePanel::-webkit-scrollbar-thumb
+{
+	border-top-right-radius: var(--borderRadius);
+	border-bottom-right-radius: var(--borderRadius);
+	background-color: var(--scrollBarThumbColor);
+}
+
+#mainPanel #sidePanel .event
+{
+	height: 100px;
+	display: grid;
+	grid-template-rows: 25px 75px;
+	border-radius: calc(var(--borderRadius) * .75);
+	margin: 5px;
+	overflow: hidden;
+}
+
+
+
+#mainPanel #sidePanel .event .header
+{
+	grid-row: 1;
+	background-color: var(--eventHeaderBgColor);
+	color:var(--titleColor);
+	height: 35px;
+	line-height: 25px;
+	padding-left: 10px;
+	padding-right: 10px;
+	display: grid;
+	grid-template-columns: .9fr auto;
+	font-weight: var(--headerFontW);
+}
+
+#sidePanel .event .header .name
+{
+	grid-column: 1;
+}
+
+#sidePanel .event .header .time
+{
+	grid-column: 2;
+	text-align: right;
+}
+
+#sidePanel .event .body
+{
+	background-color: var(--calOtherTileColor);
+	grid-row: 2;
+	padding: 10px;
+	border-radius: calc(var(--borderRadius) * .75);
+}

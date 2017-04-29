@@ -1,0 +1,45 @@
+//Event
+{
+	"id":0, //long,
+	"userid":0, //long
+	"eventName":"name", //String
+	"eventDate":"start date", //Date
+	"eventEndDate":"end date", //Date
+	"allDay": false, //bool
+	"eventDescription":"description", //Sting
+	"eventType":"basic", //Enum
+	"eventColor":"#fffff", //HexColor
+	"stickers": [] //long[]
+}
+
+//Sticker
+{
+	"id":0, //long
+	"name":"sticker name", //String
+	"url":"/stickers/0.png" //String
+}
+
+//User
+{
+	"id":0, //long
+	"name":"username", //String
+	"displayName":"dipaly name", //String
+	"claims": [] //String[]
+}
+
+GET "/api/event/all"  >> event[], STATUS:200,401,404
+GET "/api/sticker/{id}" >> sticker, STATUS:200,401,404
+GET "/api/event/{id}" >> event, STATUS:200,401,404
+GET "/api/user/{id}" >> user, STATUS:200,401,404
+
+POST "/api/event" << event >> STATUS:200,401
+POST "/api/sticker" << sticker, fileUpload >> STATUS:200,401
+
+DELETE "/api/event/{id}" >> STATUS:200,401,404
+DELETE "/api/sticker/{id}" >> STATUS:200,401,404
+
+POST "/api/register" << formData >> STATUS:200,400
+POST "/api/login" << formData >> user, STATUS:200,400,401
+GET "/api/logout" >> STATUS:200,400
+DELETE "/api/user/{id}" >> STATUS:200,400,401,404
+

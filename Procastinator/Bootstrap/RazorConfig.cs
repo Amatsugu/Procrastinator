@@ -17,7 +17,7 @@ namespace Procastinator.Bootstrap
 		public IEnumerable<string> GetDefaultNamespaces()
 		{
 			yield return "Procastinator";
-			yield return "Procastinator.Models";
+			//yield return "Procastinator.Models";
 		}
 
 		public bool AutoIncludeModelNamespace

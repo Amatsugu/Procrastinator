@@ -32,7 +32,7 @@ namespace Procastinator.Bootstrap
 		{
 			Conventions.ViewLocationConventions.Add((viewName, model, context) =>
 			{
-				return string.Concat("Procastinator/", viewName);
+				return string.Concat("ProcastinatorWeb/", viewName);
 			});
 		}
 

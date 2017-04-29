@@ -1,0 +1,23 @@
+#mainPanel #calPanel .calTile .day
+{
+	font-size: 16px;
+}
+
+#wrapper #mainPanel
+{
+	border-radius: 0;
+	left: 0;
+	width: 100%;
+	grid-template-rows: 40px 30px auto;
+	padding: 0;
+	padding-bottom: 10px;
+}
+
+#mainPanel #headerPanel
+{
+	height: 40px;
+	line-height: 40px;
+	font-size: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+}

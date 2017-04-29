@@ -1,0 +1,32 @@
+*
+{
+	/*Colors*/
+	/*BG*/
+	--bgColor1:#455;
+	--bgColor2:#123;
+	--titleBgColor:#678;
+	/*Cal*/
+	--calBodyColor:#eee;
+	--calCurrentTileColor:#ddd;
+	--calOtherTileColor:#cccccc;
+	--calOtherTileText:#222;
+	--calDayColor:#fff;
+	/*Text*/
+	--titleColor:#fff;
+	--logoTextColor:#fff;
+	/*ScrollBar*/
+	--scrollBarBgColor:#890;
+	--scrollBarThumbColor:#398;
+	/*Event Lister*/
+	--eventHeaderBgColor:#864;
+	
+	/*Sizes*/
+	--calTileSize:100px;
+	--borderRadius:10px;
+
+	/*fonts*/
+	--font: 'Roboto', sans-serif;
+	--logoFontW:100;
+	--headerFontW:300;
+	--bodyFontW:100;
+}

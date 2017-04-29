@@ -90,6 +90,7 @@
     <Compile Include="Bootstrap\NancyBootstrap.cs" />
     <Compile Include="Bootstrap\RazorConfig.cs" />
     <Compile Include="Bootstrap\RootProvider.cs" />
+    <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -112,7 +113,6 @@
     <Error Condition="!Exists('..\packages\Nancy.Viewengines.Razor.1.4.3\build\Nancy.ViewEngines.Razor.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Nancy.Viewengines.Razor.1.4.3\build\Nancy.ViewEngines.Razor.targets'))" />
   </Target>
   <Import Project="..\packages\Nancy.Viewengines.Razor.1.4.3\build\Nancy.ViewEngines.Razor.targets" Condition="Exists('..\packages\Nancy.Viewengines.Razor.1.4.3\build\Nancy.ViewEngines.Razor.targets')" />
-
   <ItemGroup>
     <ProcastinatorWeb Include="$(ProjectDir)ProcastinatorWeb\**\*.*" />
   </ItemGroup>

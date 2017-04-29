@@ -1,0 +1,25 @@
+#wrapper #mainPanel
+{
+	grid-template-columns: auto;
+}
+
+#mainPanel #headerPanel
+{
+	grid-column: 1;
+}
+
+#mainPanel #calHeader
+{
+	grid-column: 1;
+}
+
+#mainPanel #sidePanel
+{
+	display: none;
+}
+
+#mainPanel #sidePanelTitle
+{
+	display: none;
+}
+

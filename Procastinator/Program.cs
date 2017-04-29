@@ -11,7 +11,7 @@ namespace Procastinator
 	{
 		static void Main(string[] args)
 		{
-			var host = new NancyHost(new HostConfiguration() { UrlReservations = new UrlReservations() { CreateAutomatically = true } }, new Uri("http://localhost:4321"));
+			var host = new NancyHost(new HostConfiguration() { UrlReservations = new UrlReservations() { CreateAutomatically = true } }, new Uri("http://localhost:2410"));
 			host.Start();
 			Console.ReadLine();
 		}
