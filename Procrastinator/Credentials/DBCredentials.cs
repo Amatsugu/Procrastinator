@@ -15,6 +15,7 @@ namespace Procrastinator.Credentials
 
 		public const string DB_eventTable = "event";
 		public const string DB_stickerTable = "sticker";
+		
 		public static string CONNECTION_STRING => $"Host={ProcrastinatorCore.HOST};Username={DB_User};Password={DB_Pass};Database={DB_Name};Pooling=true";
 	}
 
