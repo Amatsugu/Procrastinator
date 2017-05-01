@@ -12,7 +12,7 @@ namespace Procrastinator.Bootstrap
 	{
 		public string GetRootPath()
 		{
-			return @"C:\Users\Karuta\Documents\GitHub\Procrastinator\Procastinator";
+			return @"C:\Users\Karuta\Documents\GitHub\Procrastinator\Procrastinator";
 		}
 	}
 #endif

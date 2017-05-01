@@ -8,7 +8,7 @@ namespace Procrastinator.Models
 {
 	public class Event
 	{
-		public enum EventType //TODO: Add more event types
+		public enum EventStyle //TODO: Add more event types
 		{
 			Basic,
 			Work,
@@ -16,15 +16,30 @@ namespace Procrastinator.Models
 
 		}
 
-		public long id { get; private set; }
-		public long userId { get; private set; }
-		public string eventName { get; private set; }
-		public DateTime eventDate { get; private set; }
-		public DateTime eventEndDate { get; private set; }
-		public bool allDay { get; private set; }
-		public string eventDescription { get; private set; }
-		public EventType eventType { get; private set; }
-		public string eventColor { get; private set; }
-		public long[] stickers { get; private set; } 
+		public long Id { get; set; }
+		public long UserId { get; set; }
+		public string Name { get; set; }
+		public DateTime Date { get; set; }
+		public DateTime EndDate { get; set; }
+		public bool AllDay { get; set; }
+		public string Description { get; set; }
+		public EventStyle Style { get; set; }
+		public string Color { get; set; }
+		public Sticker[] Stickers { get; set; }
+
+		public Event()
+		{
+
+		}
+
+		public Event(long id, string eventName, DateTime eventDate, long userId)
+		{
+			Id = id;
+			Name = eventName;
+			Date = eventDate;
+			UserId = userId;
+			Style = EventStyle.Basic;
+			Color = "#fff";
+		}
 	}
 }

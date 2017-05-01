@@ -1,4 +1,5 @@
 ﻿using Nancy.Hosting.Self;
+using Procrastinator.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,15 @@ namespace Procrastinator
 				Console.WriteLine("DB Connected!");
 			else
 				Console.WriteLine("DB Connection Failed!");
-
+			try
+			{
+				var e = new Event(192929, "Test Event", DateTime.Now, 107426);
+				//ProcrastinatorCore.CreateEvent(e);
+			}catch(Exception e)
+			{
+				Console.WriteLine(e.Message);
+			}
+			var e1 = ProcrastinatorCore.GetEvent(192929);
 			Console.ReadLine();
 		}
 	}

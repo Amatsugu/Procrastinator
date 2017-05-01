@@ -25,20 +25,20 @@ namespace Procrastinator.Bootstrap
 
 		private byte[] LoadFavIcon()
 		{
-			return File.ReadAllBytes(@"Procastinator/res/img/Procastinator.ico");
+			return File.ReadAllBytes(@"Procrastinator/res/img/Procrastinator.ico");
 		}*/
 
 		protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
 		{
 			Conventions.ViewLocationConventions.Add((viewName, model, context) =>
 			{
-				return string.Concat("ProcastinatorWeb/", viewName);
+				return string.Concat("ProcrastinatorWeb/", viewName);
 			});
 		}
 
 		protected override void ConfigureConventions(NancyConventions nancyConventions)
 		{
-			nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("res", $"ProcastinatorWeb/res"));
+			nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("res", $"ProcrastinatorWeb/res"));
 		}
 
 #if DEBUG

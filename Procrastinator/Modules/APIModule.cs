@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Nancy;
 using Nancy.Authentication;
 using Nancy.Security;
+using Nancy.ModelBinding;
+using Procrastinator.Models;
 
 namespace Procrastinator.Modules
 {
@@ -40,6 +42,16 @@ namespace Procrastinator.Modules
 			Delete["/event/{id}"] = e =>
 			{
 				ProcrastinatorCore.RemoveEvent((long)e.id);
+				return new Response
+				{
+					StatusCode = HttpStatusCode.OK
+				};
+			};
+
+			Post["/event"] = e =>
+			{
+				var theEvent = this.Bind<Event>();
+				ProcrastinatorCore.CreateEvent(theEvent);
 				return new Response
 				{
 					StatusCode = HttpStatusCode.OK
