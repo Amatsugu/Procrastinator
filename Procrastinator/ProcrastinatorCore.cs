@@ -20,17 +20,35 @@ namespace Procrastinator
 			return con;
 		}
 
-		internal static Event[] GetEventsFrom(int year, int month)
+		public static bool Init()
+		{
+			return true;
+		}
+
+		/// <summary>
+		/// Retrieves a list of events for a specified month
+		/// </summary>
+		/// <param name="year">Year of the event</param>
+		/// <param name="month">Month of the event</param>
+		/// <returns></returns>
+		public static Event[] GetEventsFrom(int year, int month)
 		{
 			throw new NotImplementedException();
 		}
 
-		internal static Event[] GetEventsFrom(int year, int month, int day)
+		/// <summary>
+		/// Get a list of events for a specified day
+		/// </summary>
+		/// <param name="year">Year fo the event</param>
+		/// <param name="month">Month of the event</param>
+		/// <param name="day">Day of the event</param>
+		/// <returns></returns>
+		public static Event[] GetEventsFrom(int year, int month, int day)
 		{
 			throw new NotImplementedException();
 		}
 
-		internal static Event GetEvent(long id)
+		public static Event GetEvent(long id)
 		{
 			using (var con = GetConnection())
 			{
@@ -61,7 +79,7 @@ namespace Procrastinator
 			}
 		}
 
-		internal static void CreateEvent(Event theEvent)
+		public static void CreateEvent(Event theEvent)
 		{
 			using (var con = GetConnection())
 			{
@@ -74,7 +92,7 @@ namespace Procrastinator
 			}
 		}
 
-		internal static Sticker[] GetStickers(long[] ids)
+		public static Sticker[] GetStickers(long[] ids)
 		{
 			if (ids == null)
 				return null;
@@ -106,22 +124,22 @@ namespace Procrastinator
 			return stickers.ToArray();
 		}
 
-		internal static void RemoveEvent(long id)
+		public static void RemoveEvent(long id)
 		{
 			throw new NotImplementedException();
 		}
 
-		internal static Sticker GetStricker(long id)
+		public static Sticker GetStricker(long id)
 		{
 			throw new NotImplementedException();
 		}
 
-		internal static void RemoveSticker(long id)
+		public static void RemoveSticker(long id)
 		{
 			throw new NotImplementedException();
 		}
 
-		internal static Event[] GetAllEvents() //TODO: Retrieive All Events
+		public static Event[] GetAllEvents() //TODO: Retrieive All Events
 		{
 			using (var con = GetConnection())
 			{
@@ -140,33 +158,14 @@ namespace Procrastinator
 			return null;
 		}
 
-		internal static User GetUser(long id)
+		public static User GetUser(long id)
 		{
 			throw new NotImplementedException();
 		}
 
-		internal static void RemoveUser(long id)
+		public static void RemoveUser(long id)
 		{
 			throw new NotImplementedException();
-		}
-
-		public static bool Init()
-		{
-			try //Check DB Connection
-			{
-				using (var con = GetConnection())
-				{
-					using (var cmd = con.CreateCommand())
-					{
-						cmd.CommandText = $"SELECT * FROM {DBCredentials.DB_eventTable}";
-					}
-				}
-				return true;
-			}
-			catch
-			{
-				return false;
-			}
 		}
 	}
 }

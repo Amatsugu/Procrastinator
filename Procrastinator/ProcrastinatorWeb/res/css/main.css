@@ -127,6 +127,13 @@
 #mainPanel #calPanel .calTile
 {
 	background-color: var(--calBodyColor);
+	transition: .5s background-color;
+	padding: 0;
+}
+
+#mainPanel #calPanel .calTile:hover
+{
+	background-color: var(--calCurrentTileColor);
 	padding: 0;
 }
 
