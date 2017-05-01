@@ -34,7 +34,7 @@ namespace Procrastinator.Modules
 
 			Get["/event/{id}"] = e =>
 			{
-				return ProcrastinatorCore.GetEventsFrom((long)e.id);
+				return ProcrastinatorCore.GetEvent((long)e.id);
 			};
 
 			Delete["/event/{id}"] = e =>

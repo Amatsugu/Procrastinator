@@ -20,17 +20,17 @@ namespace Procrastinator
 			return con;
 		}
 
-		internal static dynamic GetEventsFrom(int year, int month)
+		internal static Event[] GetEventsFrom(int year, int month)
 		{
 			throw new NotImplementedException();
 		}
 
-		internal static dynamic GetEventsFrom(int year, int month, int day)
+		internal static Event[] GetEventsFrom(int year, int month, int day)
 		{
 			throw new NotImplementedException();
 		}
 
-		internal static dynamic GetEventsFrom(long id)
+		internal static Event GetEvent(long id)
 		{
 			throw new NotImplementedException();
 		}
@@ -40,7 +40,7 @@ namespace Procrastinator
 			throw new NotImplementedException();
 		}
 
-		internal static dynamic GetStricker(long id)
+		internal static Sticker GetStricker(long id)
 		{
 			throw new NotImplementedException();
 		}
@@ -56,12 +56,20 @@ namespace Procrastinator
 			{
 				using (var cmd = con.CreateCommand())
 				{
-					return null;
+					cmd.CommandText = $"SELECT * FROM {DBCredentials.DB_eventTable}";
+					using (var reader = cmd.ExecuteReader())
+					{	
+						while(reader.Read())
+						{
+							var data = reader.GetString(0);
+						}
+					}
 				}
 			}
+			return null;
 		}
 
-		internal static dynamic GetUser(long id)
+		internal static User GetUser(long id)
 		{
 			throw new NotImplementedException();
 		}
