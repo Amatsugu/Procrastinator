@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Procastinator.Bootstrap
+namespace Procrastinator.Bootstrap
 {
 	public class NancyBootstrap : DefaultNancyBootstrapper
 	{

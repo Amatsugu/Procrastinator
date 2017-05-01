@@ -30,6 +30,8 @@
 GET "/api/event/all"  >> event[], STATUS:200,401,404
 GET "/api/sticker/{id}" >> sticker, STATUS:200,401,404
 GET "/api/event/{id}" >> event, STATUS:200,401,404
+GET "/api/event/{year}/{month}" >> event[], STATUS:200,401,404
+GET "/api/event/{year}/{month}/{day}" >> event[], STATUS:200,401,404
 GET "/api/user/{id}" >> user, STATUS:200,401,404
 
 POST "/api/event" << event >> STATUS:200,401

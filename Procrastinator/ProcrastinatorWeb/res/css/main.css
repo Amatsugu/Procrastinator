@@ -130,15 +130,16 @@
 	padding: 0;
 }
 
-#mainPanel #calPanel .calCurrentTile
+#mainPanel #calPanel .calCurrentTile .day
 {
 	background-color: var(--calCurrentTileColor);
 	font-weight: var(--headerFontW);
+	border-radius: 50%;
+	width: auto;
 }
 
 #mainPanel #calPanel .calOtherTile
 {
-	background-color: var(--calOtherTileColor);
 	color: var(--calOtherTileText);
 }
 
@@ -147,7 +148,11 @@
 	position: relative;
 	top: 10%;
 	left: 10%;
-	font-size: 30px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 25px;
+	height: 40px;
+	width: 40px;
 	display: block;
 }
 

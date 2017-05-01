@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Procastinator.Bootstrap
+namespace Procrastinator.Bootstrap
 {
 #if DEBUG
 	public class RootProvider : IRootPathProvider

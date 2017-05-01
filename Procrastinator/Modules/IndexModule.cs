@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Procastinator.Modules
+namespace Procrastinator.Modules
 {
 	public class IndexModule : NancyModule
 	{
