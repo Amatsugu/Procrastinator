@@ -7,13 +7,20 @@ using Nancy.Json;
 
 namespace Procrastinator.Models
 {
-	public class Sticker
+	public struct Sticker
 	{
-		public long id { get; set; }
-		public string name { get; set; }
-		public string url => $"/sticker/{id}";
+		public long Id { get; set; }
+		public string Name { get; set; }
+		public string Url => $"/sticker/{Id}";
 
 		[ScriptIgnore]
-		public string fileUrl { get; set; }
+		public string FileUrl { get; set; }
+
+		public Sticker(long id, string name, string fileUri)
+		{
+			Id = id;
+			Name = name;
+			FileUrl = fileUri;
+		}
 	}
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Nancy;
-using Nancy.Authentication;
+using Nancy.Authentication.Stateless;
 using Nancy.Security;
 using Nancy.ModelBinding;
 using Procrastinator.Models;
@@ -17,6 +17,7 @@ namespace Procrastinator.Modules
 		{
 
 			//TODO: Implementation
+			StatelessAuthentication.Enable(this, ProcrastinatorCore.StatelessConfig);
 			this.RequiresAuthentication();
 			//Event
 			Get["/event/all"] = _ =>

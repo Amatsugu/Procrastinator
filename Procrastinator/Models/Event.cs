@@ -41,5 +41,25 @@ namespace Procrastinator.Models
 			Style = EventStyle.Basic;
 			Color = "#fff";
 		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj.GetType() != typeof(Event))
+				return false;
+			Event e = (Event)obj;
+			if (Id == e.Id
+				&& UserId == e.UserId
+				&& Name == e.Name
+				&& Date == e.Date
+				&& EndDate == e.EndDate
+				&& AllDay == e.AllDay
+				&& Description == e.Description
+				&& Style == e.Style
+				&& Color == e.Color
+				&& Stickers == e.Stickers)
+				return true;
+			else
+				return false;
+		}
 	}
 }

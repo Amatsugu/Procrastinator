@@ -8,7 +8,7 @@ namespace Procrastinator.Models
 {
 	public static class Extentions
 	{
-		public static string ToArrayLiteral(this Sticker[] stickers) => $"{{{string.Join(",", from Sticker s in stickers select s.id.ToString())}}}";
+		public static string ToArrayLiteral(this Sticker[] stickers) => $"{{{string.Join(",", from Sticker s in stickers select s.Id.ToString())}}}";
 			
 	}
 }
