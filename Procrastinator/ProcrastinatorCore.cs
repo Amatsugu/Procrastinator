@@ -16,15 +16,16 @@ namespace Procrastinator
 	{
 		public const string HOST = "karuta.luminousvector.com";
 
+
 		private static Dictionary<string, IUserIdentity> loggedInUsers = new Dictionary<string, IUserIdentity>();
 
 		internal static StatelessAuthenticationConfiguration StatelessConfig { get; private set; } = new StatelessAuthenticationConfiguration(nancyContext =>
 		{
 			try
 			{
-				string ApiKey = nancyContext.Request.Cookies.First(c => c.Key == "ApiKey").Value;
-				Console.WriteLine($"API KEY: {ApiKey}");
-				return GetUserFromApiKey(ApiKey);
+				string ApiKey = nancyContext.Request.Cookies.First(c => c.Key == "Auth").Value;
+				Console.WriteLine($"AuthKey KEY: {ApiKey}");
+				return GetUserFromAuthKey(ApiKey);
 			}
 			catch (Exception e)
 			{
@@ -32,6 +33,11 @@ namespace Procrastinator
 				return null;
 			}
 		});
+
+		public static bool Init()
+		{
+			return true;
+		}
 
 		private static string HashPassword(string password)
 		{
@@ -81,7 +87,7 @@ namespace Procrastinator
 			}
 		}
 
-		private static IUserIdentity GetUserFromApiKey(string apiKey) => loggedInUsers[apiKey];
+		private static IUserIdentity GetUserFromAuthKey(string apiKey) => loggedInUsers[apiKey];
 
 		public static NpgsqlConnection GetConnection()
 		{
@@ -90,10 +96,6 @@ namespace Procrastinator
 			return con;
 		}
 
-		public static bool Init()
-		{
-			return true;
-		}
 
 		/// <summary>
 		/// Retrieves a list of events for a specified month

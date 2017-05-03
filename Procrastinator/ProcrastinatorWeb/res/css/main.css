@@ -1,4 +1,4 @@
-@import url(vars.css);	
+@import url(vars.css);
 
 #wrapper
 {
@@ -37,29 +37,48 @@
 
 #wrapper #background
 {
-	background: var(--bgColor1);
+	background: var(--bgImage);
 	left: 0px;
 	top: 0px;
 	height: inherit;
 	width: inherit;
 }
 
-#wrapper #mainPanel
+#wrapper #blurBg
 {
 	--offset:calc(20px + 64px + 10px);
-	background-color: var(--bgColor2);
 	height: calc(95% - var(--offset) - 20px);
 	width: calc(90% - 20px);
 	left: 5%;
 	top: var(--offset);
 	position: absolute;
+	padding: 10px;
+	border-radius: calc(2 * var(--borderRadius));
+	
+	background-image:var(--bgImageBlur);
+	background-repeat:no-repeat;
+	@include background-size(cover);
+	background-attachment: fixed;
+	@include background-image(linear-gradient(0deg, rgba(88, 188, 227, 1), rgba(88, 188, 227, 1)), url(/res/img/bg/RoseBlur.png));
+}
+
+#wrapper #mainPanel
+{
+	--offset:calc(20px + 64px + 10px);
+	height: calc(95% - var(--offset) - 20px);
+	width: calc(90% - 20px);
+	left: 5%;
+	top: var(--offset);
+	position: absolute;
+	padding: 10px;
 	border-radius: calc(2 * var(--borderRadius));
 	display: grid;
-	padding: 10px;
 	grid-template-columns: auto 10px auto;
 	grid-template-rows: 50px 30px auto;
 	font-family: var(--font);
 	font-weight: var(--bodyFontW);
+	background-color:var(--bgColor);
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, .2);
 }
 
 #mainPanel #headerPanel
@@ -101,7 +120,9 @@
 	grid-column: 1 / 1;
 	background-color: var(--titleBgColor);
 	border-radius: var(--borderRadius);
-	height: calc(100% + 20px);
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	height: calc(100%);
 	font-family: var(--font);
 	font-weight: var(--headerFontW);
 }
@@ -119,14 +140,16 @@
 	display: grid;
 	grid-template-columns: repeat(7, auto);
 	border-radius: var(--borderRadius);
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 	overflow: hidden;
 	grid-row: span 3;
 	grid-column: 1;
+	background-color: var(--calBodyColor);
 }
 
 #mainPanel #calPanel .calTile
 {
-	background-color: var(--calBodyColor);
 	transition: .5s background-color;
 	padding: 0;
 }
@@ -134,7 +157,6 @@
 #mainPanel #calPanel .calTile:hover
 {
 	background-color: var(--calCurrentTileColor);
-	padding: 0;
 }
 
 #mainPanel #calPanel .calCurrentTile .day
@@ -166,7 +188,9 @@
 #mainPanel #sidePanelTitle
 {
 	border-radius: var(--borderRadius);
-	height: 50px;
+	height: 30px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
 	line-height: 30px;
 	padding-left: 10px;
 	font-family: var(--font);
@@ -183,6 +207,8 @@
 	overflow-x: hidden;
 	overflow-y: scroll;
 	border-radius: var(--borderRadius);
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 	grid-column: 3;
 	grid-row: span 3;
 	align-self: stretch;
@@ -219,7 +245,7 @@
 	grid-row: 1;
 	background-color: var(--eventHeaderBgColor);
 	color:var(--titleColor);
-	height: 35px;
+	height: 25px;
 	line-height: 25px;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -245,4 +271,6 @@
 	grid-row: 2;
 	padding: 10px;
 	border-radius: calc(var(--borderRadius) * .75);
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 }

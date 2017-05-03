@@ -167,6 +167,7 @@
     <Compile Include="Models\Sticker.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Modules\APIModule.cs" />
+    <Compile Include="Modules\AuthModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="ProcrastinatorCore.cs" />
     <Compile Include="Program.cs" />
