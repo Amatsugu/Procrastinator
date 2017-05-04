@@ -1,9 +1,11 @@
 *
 {
-	/*Colors*/
+	/*Images*/
 	/*BG*/
 	--bgImage:url(/res/img/bg/Rose.png);	
 	--bgImageBlur:url(/res/img/bg/RoseBlur.png);
+	/*Colors*/
+	/*BG*/
 	--bgColor:rgba(30, 200, 200, .2);
 	--titleBgColor:rgba(227, 88, 188, .8); /*#E358BC;*/
 	/*Cal*/
@@ -16,11 +18,14 @@
 	--titleColor:#fff;
 	--logoTextColor:#fff;
 	/*ScrollBar*/
-	--scrollBarBgColor:#890;
-	--scrollBarThumbColor:#398;
+	--scrollBarBgColor:rgba(255, 255, 255, .2);
+	--scrollBarThumbColor:var(--titleBgColor);
 	/*Event Lister*/
 	--eventHeaderBgColor:rgba(88, 227, 196, .8);/*#58E3C4;*/
-	
+	/*Shadow*/
+	--shadowColor:rgba(0, 0, 0, .2);
+	/*border*/
+	--borderColor:rgba(255, 255, 255, .2);
 	/*Sizes*/
 	--calTileSize:100px;
 	--borderRadius:10px;

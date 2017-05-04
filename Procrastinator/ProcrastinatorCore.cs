@@ -130,7 +130,7 @@ namespace Procrastinator
 					using (var reader = cmd.ExecuteReader())
 					{
 						if (!reader.HasRows)
-							return null;
+							throw new EventNotFoundExeception(id);
 						reader.Read();
 						long[] stickerIds = reader.GetValue(6) as long[];
 						return new Event

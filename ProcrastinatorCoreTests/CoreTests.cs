@@ -8,7 +8,7 @@ namespace Procrastinator.Tests
 	[TestClass]
 	public class CoreTests
 	{
-		public static Random rand
+		public static Random Rand
 		{
 			get
 			{
@@ -31,7 +31,7 @@ namespace Procrastinator.Tests
 		public void CreateAndRemoveEvent()
 		{
 			
-			var e = new Event(rand.Next(int.MaxValue), Guid.NewGuid().ToString(), DateTime.Now, rand.Next(int.MaxValue));
+			var e = new Event(Rand.Next(int.MaxValue), Rand.Next(int.MaxValue), Guid.NewGuid().ToString(), DateTime.Now);
 			ProcrastinatorCore.CreateEvent(e);
 			Assert.AreEqual(e, ProcrastinatorCore.GetEvent(e.Id));
 			ProcrastinatorCore.RemoveEvent(e.Id);
@@ -46,7 +46,7 @@ namespace Procrastinator.Tests
 		[TestMethod]
 		public void CreateAndRemoveSticker()
 		{
-			Sticker s = new Sticker(rand.Next(int.MaxValue), Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+			Sticker s = new Sticker(Rand.Next(int.MaxValue), Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
 			ProcrastinatorCore.CreateSticker(s);
 			Assert.AreEqual(s, ProcrastinatorCore.GetStricker(s.Id));
 			ProcrastinatorCore.RemoveSticker(s.Id);

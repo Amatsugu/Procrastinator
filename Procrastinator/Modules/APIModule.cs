@@ -8,6 +8,7 @@ using Nancy.Authentication.Stateless;
 using Nancy.Security;
 using Nancy.ModelBinding;
 using Procrastinator.Models;
+using Newtonsoft.Json;
 
 namespace Procrastinator.Modules
 {
@@ -22,17 +23,17 @@ namespace Procrastinator.Modules
 			//Event
 			Get["/event/all"] = _ =>
 			{
-				return ProcrastinatorCore.GetAllEvents();
+				return JsonConvert.SerializeObject(ProcrastinatorCore.GetAllEvents());
 			};
 
 			Get["/event/{year}/{month}"] = date =>
 			{
-				return ProcrastinatorCore.GetEventsFrom((int)date.year, (int)date.month);
+				return JsonConvert.SerializeObject(ProcrastinatorCore.GetEventsFrom((int)date.year, (int)date.month));
 			};
 
 			Get["/event/{year}/{month}/{day}"] = date =>
 			{
-				return ProcrastinatorCore.GetEventsFrom((int)date.year, (int)date.month, (int)date.day);
+				return JsonConvert.SerializeObject(ProcrastinatorCore.GetEventsFrom((int)date.year, (int)date.month, (int)date.day));
 			};
 
 			Get["/event/{id}"] = e =>
@@ -62,7 +63,7 @@ namespace Procrastinator.Modules
 			//Sticker
 			Get["/sticker/{id}"] = s =>
 			{
-				return ProcrastinatorCore.GetStricker((long)s.id);
+				return JsonConvert.SerializeObject(ProcrastinatorCore.GetStricker((long)s.id));
 			};
 
 			Delete["/sticker/{id}"] = s =>
@@ -77,7 +78,7 @@ namespace Procrastinator.Modules
 			//User
 			Get["/user/{id}"] = u =>
 			{
-				return ProcrastinatorCore.GetUser((long)u.id);
+				return JsonConvert.SerializeObject(ProcrastinatorCore.GetUser((long)u.id));
 			};
 
 			Delete["/user/{id}"] = u =>

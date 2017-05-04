@@ -38,6 +38,7 @@
 #wrapper #background
 {
 	background: var(--bgImage);
+	background-repeat: no-repeat;
 	left: 0px;
 	top: 0px;
 	height: inherit;
@@ -59,7 +60,8 @@
 	background-repeat:no-repeat;
 	@include background-size(cover);
 	background-attachment: fixed;
-	@include background-image(linear-gradient(0deg, rgba(88, 188, 227, 1), rgba(88, 188, 227, 1)), url(/res/img/bg/RoseBlur.png));
+	/*filter: blur(40px);
+	@include background-image(linear-gradient(0deg, rgba(88, 188, 227, 1), rgba(88, 188, 227, 1)), url(/res/img/bg/Rose.png));*/
 }
 
 #wrapper #mainPanel
@@ -73,12 +75,12 @@
 	padding: 10px;
 	border-radius: calc(2 * var(--borderRadius));
 	display: grid;
-	grid-template-columns: auto 10px auto;
+	grid-template-columns: .5fr 10px .5fr;
 	grid-template-rows: 50px 30px auto;
 	font-family: var(--font);
 	font-weight: var(--bodyFontW);
 	background-color:var(--bgColor);
-	box-shadow: 0px 0px 20px rgba(0, 0, 0, .2);
+	box-shadow: 0px 0px 20px var(--shadowColor);
 }
 
 #mainPanel #headerPanel
@@ -146,6 +148,8 @@
 	grid-row: span 3;
 	grid-column: 1;
 	background-color: var(--calBodyColor);
+	border: 1px solid var(--borderColor);
+	border-top: none;
 }
 
 #mainPanel #calPanel .calTile
@@ -212,18 +216,17 @@
 	grid-column: 3;
 	grid-row: span 3;
 	align-self: stretch;
-	/*padding-top: 10px;*/
+	border: 1px solid var(--borderColor);
+	border-top: none;
 }
 
 #mainPanel #sidePanel::-webkit-scrollbar
 {
-	border-top-right-radius: var(--borderRadius);
 	border-bottom-right-radius: var(--borderRadius);
 	background-color: var(--scrollBarBgColor);
 }
 #mainPanel #sidePanel::-webkit-scrollbar-thumb
 {
-	border-top-right-radius: var(--borderRadius);
 	border-bottom-right-radius: var(--borderRadius);
 	background-color: var(--scrollBarThumbColor);
 }
@@ -234,7 +237,7 @@
 	display: grid;
 	grid-template-rows: 25px 75px;
 	border-radius: calc(var(--borderRadius) * .75);
-	margin: 5px;
+	margin: 10px;
 	overflow: hidden;
 }
 
@@ -273,4 +276,6 @@
 	border-radius: calc(var(--borderRadius) * .75);
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
+	border: 1px solid var(--borderColor);
+	border-top: none;
 }

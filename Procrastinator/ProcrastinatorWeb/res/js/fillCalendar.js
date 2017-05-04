@@ -1,17 +1,18 @@
-$(document).ready(function(){
+var thisMonth;
+$(function(){
 	//Cache Elements
 	var tile = $(".calTile");
 	var dateDisplay = $("#datePanel");
 	//Calculate Dates
 	var today = new Date();
 	dateDisplay.text(monthNames[today.getMonth()] + " " + today.getFullYear());
-	var thsMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+	thisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 	//Ready Calendar
 	tile.remove();
 	//Add previous month's overlap
-	if(thsMonth.getDay() != 0){
-		var d = thsMonth.getDay() - 1;
-		var m = thsMonth.getMonth() - 1;
+	if(thisMonth.getDay() != 0){
+		var d = thisMonth.getDay() - 1;
+		var m = thisMonth.getMonth() - 1;
 		var sd = getMonthLength(m) - d;
 		for(var i = sd; i <= getMonthLength(m); i++){
 			tile.clone()
@@ -40,7 +41,7 @@ $(document).ready(function(){
 	}
 	
 	//Add Next month's overlap
-	var monthEnd = new Date(thsMonth.getFullYear(), thsMonth.getMonth(), getMonthLength(thsMonth.getMonth()));
+	var monthEnd = new Date(thisMonth.getFullYear(), thisMonth.getMonth(), getMonthLength(thisMonth.getMonth()));
 	if(monthEnd.getDay() != 6){
 		var sd = 6 - monthEnd.getDay();
 		for(var i = 1; i <= sd; i++){
@@ -51,6 +52,9 @@ $(document).ready(function(){
 			.text(i);
 		}	
 	}
+	
+	$(".calTile").on("click", tileClick);
+
 	
 	//Fill event list
 	var el = $("#sidePanel");
@@ -64,33 +68,12 @@ $(document).ready(function(){
 
 
 var monthNames = [
-	"January",
-	"Febuary",
-	"March",
-	"April",
-	"May",
-	"June",
-	"July",
-	"August",
-	"September",
-	"October",
-	"November",
-	"December"
-]
-var monthLengths = [
-	31,
-	28,
-	31,
-	30,
-	31,
-	30,
-	31,
-	31,
-	30,
-	31,
-	30,
-	31
-]
+	"January", "Febuary", "March",
+	"April", "May", "June",
+	"July", "August", "September",
+	"October", "November", "December"
+];
+var monthLengths = [31,28,31,30,31,30,31,31,30,31,30,31];
 
 function getMonthLength(month){
 	if(month < 0)
@@ -98,4 +81,14 @@ function getMonthLength(month){
 	if(month > 12)
 		month -= 12;
 	return monthLengths[month];
+}
+
+function tileClick(e)
+{
+	if(!$(e.currentTarget).hasClass("calOtherTile")){
+		var targetDay = $(e.currentTarget).children(".day").text();
+		var targetDate = new Date(thisMonth.getFullYear(), thisMonth.getMonth(), parseInt(targetDay));
+		console.log(targetDate);
+		//TODO: Request Date
+	}
 }

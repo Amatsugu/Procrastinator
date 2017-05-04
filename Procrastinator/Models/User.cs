@@ -11,11 +11,8 @@ namespace Procrastinator.Models
 {
 	public class User : IUserIdentity
 	{
-		public long id { get; set; }
-		[ScriptIgnore]
+		public long Id { get; set; }
 		public string UserName { get; set; }
 		public IEnumerable<string> Claims { get; set; }
-		
-		private string username => UserName;
 	}
 }

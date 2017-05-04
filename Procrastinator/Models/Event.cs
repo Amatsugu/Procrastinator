@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Procrastinator.Models
 {
-	public class Event
+	public struct Event
 	{
 		public enum EventStyle //TODO: Add more event types
 		{
@@ -27,26 +27,23 @@ namespace Procrastinator.Models
 		public string Color { get; set; }
 		public Sticker[] Stickers { get; set; }
 
-		public Event()
-		{
-
-		}
-
-		public Event(long id, string eventName, DateTime eventDate, long userId)
+		public Event(long id, long userId, string eventName, DateTime eventDate)
 		{
 			Id = id;
+			UserId = userId;
 			Name = eventName;
 			Date = eventDate;
-			UserId = userId;
 			Style = EventStyle.Basic;
-			Color = "#fff";
+			EndDate = eventDate;
+			AllDay = false;
+			Description = null;
+			Style = EventStyle.Basic;
+			Color = null;
+			Stickers = null;
 		}
 
-		public override bool Equals(object obj)
+		/*public bool AreSameEvent(Event e)
 		{
-			if (obj.GetType() != typeof(Event))
-				return false;
-			Event e = (Event)obj;
 			if (Id == e.Id
 				&& UserId == e.UserId
 				&& Name == e.Name
@@ -60,6 +57,16 @@ namespace Procrastinator.Models
 				return true;
 			else
 				return false;
+		}*/
+	}
+
+	public class EventNotFoundExeception : Exception
+	{
+		public long EventID { get; set; }
+
+		public EventNotFoundExeception(long eventID) : base($"Event '{eventID}' could not be found!")
+		{
+			EventID = eventID;
 		}
 	}
 }
