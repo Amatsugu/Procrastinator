@@ -105,7 +105,42 @@ namespace Procrastinator
 		/// <returns></returns>
 		public static Event[] GetEventsFrom(int year, int month)
 		{
-			throw new NotImplementedException();
+            String s = "" + year + "," + month;
+            DateTime searchable = Convert.ToDateTime(s);
+            List<Event> Events = new List<Event>();
+
+            using (var con = GetConnection())
+            {
+                using (var cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = $"SELECT * FROM {DBCredentials.DB_eventTable} WHERE eventDate='{searchable}'";
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (!reader.HasRows)
+                            return null;
+                        reader.Read();
+                        long[] stickerIds = reader.GetValue(6) as long[];
+                        Events.Add(new Event
+                        {
+
+
+                            Id = reader.GetInt64(4),
+                            UserId = reader.GetInt64(7),
+                            Name = reader.GetString(0),
+                            Date = reader.GetDateTime(1),
+                            EndDate = reader.GetDateTime(5),
+                            AllDay = reader.GetBoolean(2),
+                            Description = reader.GetString(3),
+                            Style = (Event.EventStyle)Enum.Parse(typeof(Event.EventStyle), reader.GetString(9), true),
+                            Color = reader.GetString(8),
+                            Stickers = GetStickers(stickerIds)
+                        });
+                        return Events.ToArray();
+                    }
+                }
+            }
+
 		}
 
 		/// <summary>
@@ -117,11 +152,46 @@ namespace Procrastinator
 		/// <returns></returns>
 		public static Event[] GetEventsFrom(int year, int month, int day)
 		{
-			throw new NotImplementedException();
-		}
+            String s = "" + year + "," + month + "," +day;
+            DateTime searchable = Convert.ToDateTime(s);
+            List<Event> Events = new List<Event>();
+
+            using (var con = GetConnection())
+            {
+                using (var cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = $"SELECT * FROM {DBCredentials.DB_eventTable} WHERE eventDate='{searchable}'";
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (!reader.HasRows)
+                            return null;
+                        reader.Read();
+                        long[] stickerIds = reader.GetValue(6) as long[];
+                        Events.Add(new Event
+                        {
+
+
+                            Id = reader.GetInt64(4),
+                            UserId = reader.GetInt64(7),
+                            Name = reader.GetString(0),
+                            Date = reader.GetDateTime(1),
+                            EndDate = reader.GetDateTime(5),
+                            AllDay = reader.GetBoolean(2),
+                            Description = reader.GetString(3),
+                            Style = (Event.EventStyle)Enum.Parse(typeof(Event.EventStyle), reader.GetString(9), true),
+                            Color = reader.GetString(8),
+                            Stickers = GetStickers(stickerIds)
+                        });
+                        return Events.ToArray();
+                    }
+                }
+            }
+        }
 
 		public static Event GetEvent(long id)
 		{
+
 			using (var con = GetConnection())
 			{
 				using (var cmd = con.CreateCommand())
@@ -129,8 +199,7 @@ namespace Procrastinator
 					cmd.CommandText = $"SELECT * FROM {DBCredentials.DB_eventTable} WHERE eventId='{id}'";
 					using (var reader = cmd.ExecuteReader())
 					{
-						if (!reader.HasRows)
-							throw new EventNotFoundExeception(id);
+                 
 						reader.Read();
 						long[] stickerIds = reader.GetValue(6) as long[];
 						return new Event
@@ -170,7 +239,8 @@ namespace Procrastinator
 			{
 				using (var cmd = con.CreateCommand())
 				{
-					throw new NotImplementedException();
+                    cmd.CommandText = $"DELETE FROM {DBCredentials.DB_eventTable} WHERE eventid = {id}";
+                    cmd.ExecuteNonQuery();
 				}
 			}
 		}
@@ -207,26 +277,57 @@ namespace Procrastinator
 			return stickers.ToArray();
 		}
 
-		public static void GetSticker(long id)
+		public static Sticker GetSticker(long id)
 		{
-			throw new NotImplementedException();
+
+            using (var con = GetConnection())
+            {
+                using (var cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = $"SELECT * FROM {DBCredentials.DB_stickerTable} WHERE stickerId='{id}'";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                       
+                        reader.Read();
+
+                        return new Sticker
+                        {
+
+                            Id = id,
+                            Name = reader.GetString(3),
+                            FileUrl = reader.GetString(1)
+                        };
+
+                    }
+                }
+            }
 		}
 
 
 		public static void CreateSticker(Sticker sticker)
 		{
-			throw new NotImplementedException();
+            using (var con = GetConnection())
+            {
+                using (var cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = $"INSERT INTO {DBCredentials.DB_stickerTable} VALUES {sticker}";
+                    cmd.ExecuteNonQuery();
+                }
+            }
 		}
 
-		public static Sticker GetStricker(long id)
-		{
-			throw new NotImplementedException();
-		}
 
 		public static void RemoveSticker(long id)
 		{
-			throw new NotImplementedException();
-		}
+            using (var con = GetConnection())
+            {
+                using (var cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = $"DELETE FROM {DBCredentials.DB_stickerTable} WHERE stickerid = {id}";
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
 		public static Event[] GetAllEvents() //TODO: Retrieive All Events
 		{
@@ -249,12 +350,39 @@ namespace Procrastinator
 
 		public static User GetUser(long id)
 		{
-			throw new NotImplementedException();
-		}
+            using(var con = GetConnection())
+            {
+                using (var cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = $"SELECT * FROM {DBCredentials.DB_userTable} WHERE userId='{id}'";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+
+                        reader.Read();
+
+                        return new User
+                        {
+
+                            UserId = id,
+                            UserName = reader.GetString(1),
+                            Password= reader.GetString(2)
+                        };
+
+                    }
+                }
+            }
+        }
 
 		public static void RemoveUser(long id)
 		{
-			throw new NotImplementedException();
-		}
+            using (var con = GetConnection())
+            {
+                using (var cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = $"DELETE FROM {DBCredentials.DB_userTable} WHERE userid = {id}";
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 	}
 }

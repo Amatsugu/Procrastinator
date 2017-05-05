@@ -48,7 +48,7 @@ namespace Procrastinator.Tests
 		{
 			Sticker s = new Sticker(Rand.Next(int.MaxValue), Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
 			ProcrastinatorCore.CreateSticker(s);
-			Assert.AreEqual(s, ProcrastinatorCore.GetStricker(s.Id));
+			Assert.AreEqual(s, ProcrastinatorCore.GetSticker(s.Id));
 			ProcrastinatorCore.RemoveSticker(s.Id);
 		}
 	}
