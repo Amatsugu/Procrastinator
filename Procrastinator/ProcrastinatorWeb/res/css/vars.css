@@ -14,6 +14,7 @@
 	--calOtherTileColor:rgba(204, 204, 204, .4);
 	--calOtherTileText:rgb(119, 119, 119);
 	--calDayColor:#fff;
+	--calSelectedTileColor:rgba(200,200,200, .7);
 	/*Text*/
 	--titleColor:#fff;
 	--logoTextColor:#fff;
@@ -26,6 +27,10 @@
 	--shadowColor:rgba(0, 0, 0, .2);
 	/*border*/
 	--borderColor:rgba(255, 255, 255, .2);
+	/*Link*/
+	--linkColor:rgb(200, 200, 200);
+	--linkColorHover:rgb(227, 88, 188);
+
 	/*Sizes*/
 	--calTileSize:100px;
 	--borderRadius:10px;

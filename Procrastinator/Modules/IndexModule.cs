@@ -13,7 +13,12 @@ namespace Procrastinator.Modules
 		{
 			Get["/"] = _ =>
 			{
-				return View["index"];
+#if !DEBUG
+				//if (Context.CurrentUser == null)
+				//	return View["login"];
+				//else
+#endif
+					return View["index", new { user = Context.CurrentUser }];
 			};
 		}
 	}
