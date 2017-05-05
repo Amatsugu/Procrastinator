@@ -181,7 +181,7 @@ a:visited
 #mainPanel #calHeader
 {
 	display: grid;
-	grid-template-columns: repeat(7, .14fr);
+	grid-template-columns: repeat(7, auto);
 	overflow: hidden;
 	grid-template-rows: 30px;
 	grid-row: 2 / 2;
@@ -213,7 +213,7 @@ a:visited
 {
 	--padding:10px;
 	display: grid;
-	grid-template-columns: repeat(7, .14fr);
+	grid-template-columns: repeat(7, auto);
 	border-radius: var(--borderRadius);
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
