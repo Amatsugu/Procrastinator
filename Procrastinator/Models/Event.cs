@@ -27,9 +27,9 @@ namespace Procrastinator.Models
 		public string Color { get; set; }
 		public Sticker[] Stickers { get; set; }
 
-		public Event(long id, long userId, string eventName, DateTime eventDate)
+		public Event(long userId, string eventName, DateTime eventDate)
 		{
-			Id = id;
+			Id = ProcrastinatorCore.GenerateID();
 			UserId = userId;
 			Name = eventName;
 			Date = eventDate;

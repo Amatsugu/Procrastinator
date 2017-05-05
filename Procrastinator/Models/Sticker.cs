@@ -12,15 +12,17 @@ namespace Procrastinator.Models
 		public long Id { get; set; }
 		public string Name { get; set; }
 		public string Url => $"/sticker/{Id}";
+		public long UserId { get; set; }
 
 		[ScriptIgnore]
 		public string FileUrl { get; set; }
 
-		public Sticker(long id, string name, string fileUri)
+		public Sticker(long userId, string name, string fileUri)
 		{
-			Id = id;
+			Id = ProcrastinatorCore.GenerateID();
 			Name = name;
 			FileUrl = fileUri;
+			UserId = userId;
 		}
 	}
 }

@@ -32,7 +32,7 @@ namespace Procrastinator.Tests
 		{
 			
 			var e = new Event(Rand.Next(int.MaxValue), Rand.Next(int.MaxValue), Guid.NewGuid().ToString(), DateTime.Now);
-			ProcrastinatorCore.CreateEvent(e);
+			e = ProcrastinatorCore.CreateEvent(e);
 			Assert.AreEqual(e, ProcrastinatorCore.GetEvent(e.Id));
 			ProcrastinatorCore.RemoveEvent(e.Id);
 		}
@@ -46,10 +46,16 @@ namespace Procrastinator.Tests
 		[TestMethod]
 		public void CreateAndRemoveSticker()
 		{
-			Sticker s = new Sticker(Rand.Next(int.MaxValue), Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
-			ProcrastinatorCore.CreateSticker(s);
+			Sticker s = new Sticker(Rand.Next(int.MaxValue), Rand.Next(int.MaxValue), Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+			s = ProcrastinatorCore.CreateSticker(s);
 			Assert.AreEqual(s, ProcrastinatorCore.GetSticker(s.Id));
 			ProcrastinatorCore.RemoveSticker(s.Id);
+		}
+
+		[TestMethod]
+		public void CreateAndRemoveUser()
+		{
+
 		}
 	}
 }

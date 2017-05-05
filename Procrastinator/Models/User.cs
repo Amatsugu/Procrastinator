@@ -14,6 +14,12 @@ namespace Procrastinator.Models
 		public long Id { get; set; }
 		public string UserName { get; set; }
 		public IEnumerable<string> Claims { get; set; }
-		public long UserId { get; internal set; }
+
+		public User(string username, string[] claims = null)
+		{
+			Id = ProcrastinatorCore.GenerateID();
+			UserName = username;
+			Claims = claims;
+		}
 	}
 }
