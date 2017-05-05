@@ -73,7 +73,7 @@ namespace Procrastinator
 			return true;
 		}
 
-		internal static string ValidateUser(LoginCredentialsModel user)
+		internal static string ValidateUser(LoginCredentialsModel user)   /* Switch the empty string to authorization thingie :) */
 		{
 			if (string.IsNullOrWhiteSpace(user.Username) || string.IsNullOrWhiteSpace(user.Password))
 				return null;
@@ -81,8 +81,21 @@ namespace Procrastinator
 			{
 				using (var cmd = con.CreateCommand())
 				{
-					//TODO: Paula ask me about how to do this
-					throw new NotImplementedException();
+                    cmd.CommandText = $"SELECT * FROM{DBCredentials.DB_userTable} WHERE username = {username}";
+
+                    using (var reader = cmd.ExecuteReader())
+                        reader.Read();
+
+                    LoginCredentialsModel crosscheck = new LoginCredentialsModel
+                    {
+                        Username = username,
+                        Password = password
+                    };
+					
+                    if(VerifyPassword(user.Password, crosscheck.Password)) 
+                            return "";
+                    else
+                        return null;
 				}
 			}
 		}
@@ -365,10 +378,30 @@ namespace Procrastinator
 
                             UserId = id,
                             UserName = reader.GetString(1),
-                            Password= reader.GetString(2)
+                            password= reader.GetString(2)
                         };
 
                     }
+                }
+            }
+        }
+
+        public static void createUser(LoginCredentialsModel user)
+        {
+            using (var con = GetConnection())
+            {
+                using (var cmd = con.CreateCommand())
+                {
+                    User userx = new User {
+                        
+                        UserName = username,
+                    password=HashPassword(password)
+                    };
+                
+
+                
+                    cmd.CommandText = $"INSERT INTO {DBCredentials.DB_userTable} VALUES {userx}";
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

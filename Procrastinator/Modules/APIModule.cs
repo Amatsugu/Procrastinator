@@ -62,7 +62,7 @@ namespace Procrastinator.Modules
 			//Sticker
 			Get["/sticker/{id}"] = s =>
 			{
-				return Response.AsJson(ProcrastinatorCore.GetStricker((long)s.id));
+				return Response.AsJson(ProcrastinatorCore.GetSticker((long)s.id));
 			};
 
 			Delete["/sticker/{id}"] = s =>
