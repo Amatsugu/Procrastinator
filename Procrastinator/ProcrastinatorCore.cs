@@ -287,12 +287,9 @@ namespace Procrastinator
                     cmd.CommandText = $"SELECT * FROM {DBCredentials.DB_stickerTable} WHERE stickerId='{id}'";
                     using (var reader = cmd.ExecuteReader())
                     {
-                       
                         reader.Read();
-
                         return new Sticker
                         {
-
                             Id = id,
                             Name = reader.GetString(3),
                             FileUrl = reader.GetString(1)
@@ -362,10 +359,8 @@ namespace Procrastinator
 
                         return new User
                         {
-
                             UserId = id,
                             UserName = reader.GetString(1),
-                            Password= reader.GetString(2)
                         };
 
                     }
