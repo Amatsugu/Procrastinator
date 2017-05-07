@@ -40,6 +40,11 @@ $(function(){
 		month: today.getMonth(),
 		day: today.getDate()
 	});
+	$.ajax({
+		url:"/res/frame/createEvent.html"
+	}).done(function(e){
+		OpenWindow(e, "Create Event");
+	});
 });
 
 
@@ -123,6 +128,7 @@ function tileClick(e)
 		var targetYear =  thisMonth.getFullYear();
 		$(".selectedTile").removeClass("selectedTile");
 		t.addClass("selectedTile");
+		console.log(targetDay);
 		populateSidePanel({
 			year: targetYear,
 			month: targetMonth,

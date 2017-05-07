@@ -1,0 +1,115 @@
+#createEvent form
+{
+	display: flex;
+	flex-direction: column;
+}
+
+#createEvent h1
+{
+	font: var(--font);
+	font-weight: 300;
+	font-size: 20px;
+	color: #fff;
+}
+
+#createEvent input,
+#createEvent select,
+#createEvent textarea,
+#createEvent option
+{
+	font-family: var(--font);
+	font-weight: 400;
+	height: 30px;
+	background: var(--formBgColor);
+	border: 0;
+	border-bottom: 2px solid var(--formBorderColor);
+	margin-top: 5px;
+	margin-bottom: 5px;
+	outline: none;
+	padding: 5px;
+	transition: .5s border, .5s background;
+}
+
+#createEvent span
+{
+	display: flex;
+}
+
+#createEvent span input:first-of-type
+{
+	margin-left: 0;
+}
+
+#createEvent span label, 
+#createEvent span input
+{
+	margin-left: 5px;
+}
+
+#createEvent label
+{
+	font-weight: 100;
+	height: 25px;
+	line-height: 25px;
+	display: block;
+	color: #fff;
+}
+
+#createEvent input[type="checkbox"]
+{
+	-webkit-appearance:none;
+	height: 25px;
+	width: 25px;
+	background: var(--formBgColor);
+	border: 0;
+	margin: 0;
+	top: 5px;
+	border-bottom: 2px solid var(--formBorderColor);
+}
+
+#createEvent input[type="checkbox"]:checked
+{
+	content: url(/res/img/input/checkMark.png);
+}
+
+#createEvent input[type="checkbox"]:focus, 
+#createEvent input[type="checkbox"]:checked:focus
+{
+	border-bottom: 2px solid var(--formBorderColor);
+}
+
+#createEvent input[type="checkbox"]:hover, 
+#createEvent input[type="checkbox"]:checked:hover
+{
+	border-bottom: 2px solid var(--formBorderHoverColor);
+}
+
+#createEvent input[type="submit"]
+{
+	border: 2px solid var(--formBorderColor);
+	height: 35px;
+}
+
+#createEvent input[type="submit"]:hover
+{
+	border: 2px solid var(--formBorderHoverColor);
+	background-color: var(--formButtonBgHoverColor);
+}
+
+#createEvent textarea
+{
+	max-width: 100%;
+	min-height: 200px;
+}
+
+#createEvent input:hover,
+#createEvent input:focus, 
+#createEvent select:hover, 
+#createEvent select:focus, 
+#createEvent textarea:hover, 
+#createEvent textarea:focus, 
+#createEvent option:hover
+{
+	border-bottom: 2px solid var(--formBorderHoverColor);
+}
+

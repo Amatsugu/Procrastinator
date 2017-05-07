@@ -433,10 +433,9 @@ namespace Procrastinator
 			{
 				using (var cmd = con.CreateCommand())
 				{
-					User newUser = new User
+					User newUser = new User(user.Username)
 					{
-						Id = GenerateID(),
-						UserName = user.Username
+						Id = GenerateID()
 					};
 					cmd.CommandText = $"INSERT INTO {DBCredentials.DB_userTable} VALUES ('{newUser.Id}', '{Uri.EscapeDataString(user.Username)}', '{HashPassword(user.Password)}')";
 					cmd.ExecuteNonQuery();
@@ -460,10 +459,9 @@ namespace Procrastinator
 					using (var reader = cmd.ExecuteReader())
 					{
 						reader.Read();
-						return new User
+						return new User(Uri.UnescapeDataString(reader.GetString(1)))
 						{
-							Id = id,
-							UserName = Uri.UnescapeDataString(reader.GetString(1)),
+							Id = id
 						};
 					}
 				}
