@@ -9,7 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="/res/css/smallScreen.css" media="only screen and (max-width: 1030px)" />
 		<link rel="stylesheet" type="text/css" href="/res/css/smallerScreen.css" media="only screen and (max-width: 500px)" />
 		<script src="/res/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-		<script src="/res/js/login.js"></script>
+		<script src="/res/js/register.js"></script>
 		<title>Procrastinator</title>
 	</head>
 	<body>
@@ -17,14 +17,15 @@
 			<div id="loginWindow">
 				<div id="loginBlurBg">
 					<div id="loginPanel">
-						<form name="login">
+						<form name="register">
 							<img src="/res/img/logo.png">
 							<label id="logo">Procrastinator</label>
 							<label id="formError"></label>
 							<input type="text" name="username" placeholder="Username">
 							<input type="password" name="password" placeholder="Password">
-							<a href="/register">Register</a>
-							<input type="submit" value="Login">
+							<input type="password" name="password2" placeholder="Confirm">
+							<a href="/">Login</a>
+							<input type="submit" value="Register">
 						</form>
 					</div>
 				</div>

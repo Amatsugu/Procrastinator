@@ -107,7 +107,7 @@ a:visited
 
 #wrapper #background
 {
-	background: var(--bgImage);
+	background-image: var(--bgImage);
 	background-repeat: no-repeat;
 	background-position: center;
 	left: 0px;
@@ -216,6 +216,10 @@ a:visited
 	background-color: var(--calBodyColor); 
 	border:1px solid var(--borderColor);
 	transition: .5s background-color;
+	-webkit-user-select: none;  
+	-moz-user-select: none;    
+	-ms-user-select: none;      
+	user-select: none;
 }
 
 #windowContainer #window #windowHeader #closeButton:hover

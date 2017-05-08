@@ -1,0 +1,120 @@
+@import url(vars.css);
+
+#pageWrap
+{
+	background: var(--bgImage);
+	background-position: center;
+	background-attachment: fixed;
+	margin: 0;
+	padding:0; 
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+img
+{
+	height: 64px;
+	widows: 64px;
+}
+
+#logo
+{
+	line-height: 64px;
+	font-size: 32px;
+	color: var(--logoTextColor);
+	font-family: var(--font);
+	font-weight: var(--logoFontW);
+}
+
+#loginWindow
+{
+	width: 500px;
+	height: auto;
+}
+
+#loginBlurBg
+{
+	border-radius: calc(2 * var(--borderRadius));
+	background-image:var(--bgImageBlur);
+	background-repeat:no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+}
+
+#loginPanel
+{
+	padding: 50px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	border-radius: calc(2 * var(--borderRadius));
+	font-family: var(--font);
+	font-weight: var(--bodyFontW);
+	background-color:var(--bgColor);
+	box-shadow: 0px 0px 20px var(--shadowColor);
+}
+
+form
+{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items:center; 
+}
+
+label
+{
+	color: var(--logoTextColor);
+}
+
+#formError
+{
+	color: #a00;
+	font-weight: 300;
+}
+
+input
+{
+	font-family: var(--font);
+	font-weight: 400;
+	height: 30px;
+	background: var(--formBgColor);
+	border: 0;
+	border-bottom: 2px solid var(--formBorderColor);
+	margin-top: 5px;
+	margin-bottom: 5px;
+	outline: none;
+	padding: 20px;
+	transition: .5s border, .5s background, .5s color;
+}
+
+input[type="submit"]
+{
+	color:#fff;
+	padding: 0;
+	height: 40px;
+	width: 120px; 
+}
+
+
+input[type="submit"]:hover
+{
+	color:#000;
+	background: var(--formButtonBgHoverColor);
+}
+input:hover, input:focus
+{
+	border-bottom: 2px solid var(--formBorderHoverColor);
+}
+
+.invalid
+{
+	border-bottom: 3px solid #f00;
+}

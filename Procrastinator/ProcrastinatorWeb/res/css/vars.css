@@ -2,8 +2,8 @@
 {
 	/*Images*/
 	/*BG*/
-	--bgImage:url(/res/img/bg/Rose.png);	
-	--bgImageBlur:url(/res/img/bg/RoseBlur.png);
+	--bgImage:url(/res/img/bg/BG4.jpg);	
+	--bgImageBlur:url(/res/img/bg/BG4Blur.jpg);
 	
 	/*Colors*/
 	/*BG*/
@@ -30,9 +30,10 @@
 	--borderColor:rgba(255, 255, 255, .2);
 	/*Link*/
 	--linkColor:rgb(200, 200, 200);
+	--linkColorVisited:rgb(200, 200, 200);
 	--linkColorHover:rgb(227, 88, 188);
 	/*Form*/
-	--formBgColor:rgba(200, 200, 200, .7);
+	--formBgColor:rgba(200, 200, 200, .5);
 	--formBorderColor:rgba(255, 255, 255, .2);
 	--formBorderHoverColor:rgba(227, 88, 188, .8);
 	--formButtonBgHoverColor:rgba(250,250,250,.7);

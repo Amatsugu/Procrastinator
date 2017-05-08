@@ -30,3 +30,18 @@
 	padding-left: 10px;
 	padding-right: 10px;
 }
+
+#loginWindow
+{
+	width: 100%;
+}
+
+#loginBlurBg
+{
+	border-radius:0;
+}
+
+#loginPanel
+{
+	border-radius:0;
+}

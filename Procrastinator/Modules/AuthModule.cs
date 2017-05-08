@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Nancy;
 using Nancy.ModelBinding;
 using Procrastinator.Models;
+using Nancy.Extensions;
 
 namespace Procrastinator.Modules
 {
@@ -17,6 +18,7 @@ namespace Procrastinator.Modules
 			{
 				var login = this.Bind<LoginCredentialsModel>();
 				var auth = ProcrastinatorCore.ValidateUser(login);
+				Console.WriteLine(auth);
 				if (string.IsNullOrEmpty(auth))
 					return new Response { StatusCode = HttpStatusCode.Unauthorized };
 				else
@@ -25,8 +27,22 @@ namespace Procrastinator.Modules
 
 			Get["/logout"] = _ =>
 			{
-				return new Response().WithCookie("Auth", null, DateTime.Now);
+				return Response.AsRedirect("/").WithCookie("Auth", null, DateTime.Now);
 			};
+
+			Post["/register"] = _ =>
+			{
+				var user = this.Bind<LoginCredentialsModel>();
+				ProcrastinatorCore.CreateUser(user);
+				var auth = ProcrastinatorCore.ValidateUser(user);
+				return new Response().WithCookie("Auth", auth, DateTime.Now.AddDays(5));
+			};
+
+			Post["/checkuser"] = args =>
+			{
+				return (ProcrastinatorCore.CheckUserExists(Request.Body.AsString())) ? new Response { StatusCode = HttpStatusCode.NotAcceptable } : new Response { StatusCode = HttpStatusCode.OK };
+			};
+
 		}
 	}
 }

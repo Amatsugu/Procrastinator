@@ -8,6 +8,7 @@ using Nancy.Authentication.Stateless;
 using Nancy.Security;
 using Nancy.ModelBinding;
 using Procrastinator.Models;
+using Nancy.Extensions;
 
 namespace Procrastinator.Modules
 {
@@ -15,10 +16,8 @@ namespace Procrastinator.Modules
 	{
 		public APIModule() : base("/api")
 		{
-
-			//TODO: Implementation
-			//StatelessAuthentication.Enable(this, ProcrastinatorCore.StatelessConfig);
-			//this.RequiresAuthentication();
+			StatelessAuthentication.Enable(this, ProcrastinatorCore.StatelessConfig);
+			this.RequiresAuthentication();
 			//Event
 			Get["/event/all"] = _ =>
 			{
@@ -27,12 +26,12 @@ namespace Procrastinator.Modules
 
 			Get["/event/{year}/{month}"] = date =>
 			{
-				return Response.AsJson(ProcrastinatorCore.GetEventsFrom((int)date.year, (int)date.month));
+				return Response.AsJson(ProcrastinatorCore.GetEventsFromMonth((int)date.year, (int)date.month, ((User)Context.CurrentUser).Id));
 			};
 
 			Get["/event/{year}/{month}/{day}"] = date =>
 			{
-				return Response.AsJson(ProcrastinatorCore.GetEventsFrom((int)date.year, (int)date.month, (int)date.day));
+				return Response.AsJson(ProcrastinatorCore.GetEventsFromDay((int)date.year, (int)date.month, (int)date.day, ((User)Context.CurrentUser).Id));
 			};
 
 			Get["/event/{id}"] = e =>
@@ -52,6 +51,8 @@ namespace Procrastinator.Modules
 			Post["/event"] = e =>
 			{
 				var theEvent = this.Bind<Event>();
+				Console.WriteLine(this.Context.Request.Body.AsString());
+				theEvent.UserId = ((User)Context.CurrentUser).Id;
 				ProcrastinatorCore.CreateEvent(theEvent);
 				return new Response
 				{

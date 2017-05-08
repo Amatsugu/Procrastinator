@@ -8,6 +8,7 @@ $(function()
 	title = $("#window #title");
 	win = $("#windowContainer");
 	blackout = $("#blackout");
+	blackout.click(closeWindow);
 	$("#window #closeButton").click(closeWindow);
 });
 

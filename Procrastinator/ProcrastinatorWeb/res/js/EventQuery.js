@@ -35,14 +35,16 @@ function SendApiGetRequest(url, callback){
 	}
 	$.ajax({
 		url: url,
-		method: "GET"
-	}).done(function(data){
-		output.data = data; 	
-		callback(output);
-	}).fail(function(jqXHR, textStatus){
-		output.error = true;
-		output.errorMessage = jqXHR.statusText;
-		callback(output);
+		method: "GET",
+		success: function(data){
+			output.data = data; 	
+			callback(output);
+		},
+		error: function(jqXHR, textStatus){
+			output.error = true;
+			output.errorMessage = jqXHR.statusText;
+			callback(output);
+		}
 	});
 }
 
@@ -54,15 +56,18 @@ function SendApiPostRequest(url, data, callback){
 	}
 	$.ajax({
 		url: url,
-		data: data,
-		method: "POST"
-	}).done(function(data){
-		output.data = data; 	
-		callback(output);
-	}).fail(function(jqXHR, textStatus){
-		output.error = true;
-		output.errorMessage = jqXHR.statusText;
-		callback(output);
+		data: JSON.stringify(data),
+		method: "POST",
+		contentType: 'application/json', 
+		success: function(data){
+			output.data = data; 	
+			callback(output);
+		},
+		error: function(jqXHR, textStatus){
+			output.error = true;
+			output.errorMessage = jqXHR.statusText;
+			callback(output);
+		}
 	});
 }
 
@@ -75,7 +80,8 @@ function SendApiDeleteRequest(url, data, callback){
 	$.ajax({
 		url: url,
 		data: data,
-		method: "DELETE"
+		method: "DELETE",
+		contentType: 'application/json'
 	}).done(function(data){
 		output.data = data; 	
 		callback(output);

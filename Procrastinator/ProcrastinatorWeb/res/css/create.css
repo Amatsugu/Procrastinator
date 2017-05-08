@@ -1,3 +1,5 @@
+@import url(vars.css);
+
 #createEvent form
 {
 	display: flex;
@@ -113,3 +115,8 @@
 	border-bottom: 2px solid var(--formBorderHoverColor);
 }
 
+
+#createEvent .invalid
+{
+	border-bottom: 3px solid #f00;
+}

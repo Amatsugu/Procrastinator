@@ -19,7 +19,7 @@ namespace Procrastinator.Models
 		{
 			Id = ProcrastinatorCore.GenerateID();
 			UserName = username;
-			Claims = claims;
+			Claims = claims ?? (new string[0]);
 		}
 	}
 }

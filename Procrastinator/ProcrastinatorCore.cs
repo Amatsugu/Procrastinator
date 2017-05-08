@@ -9,6 +9,7 @@ using Procrastinator.Models;
 using Nancy.Authentication.Stateless;
 using Nancy.Security;
 using System.Security.Cryptography;
+using Newtonsoft.Json;
 
 namespace Procrastinator
 {
@@ -41,6 +42,18 @@ namespace Procrastinator
 		public static bool Init()
 		{
 			return true;
+		}
+
+		internal static bool CheckUserExists(string username)
+		{
+			using (var con = GetConnection())
+			{
+				using (var cmd = con.CreateCommand())
+				{
+					cmd.CommandText = $"SELECT username FROM {DBCredentials.DB_userTable} WHERE username = '{Uri.EscapeDataString(username)}'";
+					return cmd.ExecuteReader().HasRows;
+				}
+			}
 		}
 
 		/// <summary>
@@ -107,10 +120,14 @@ namespace Procrastinator
 			{
 				using (var cmd = con.CreateCommand())
 				{
-					cmd.CommandText = $"SELECT * FROM{DBCredentials.DB_userTable} WHERE username = '{user.Username}'";
+					cmd.CommandText = $"SELECT password FROM {DBCredentials.DB_userTable} WHERE username = '{Uri.EscapeDataString(user.Username)}'";
 					string passhash = (string)cmd.ExecuteScalar();
 					if (VerifyPassword(user.Password, passhash))
-						return GenerateUserAuthToken();
+					{
+						var auth = GenerateUserAuthToken();
+						loggedInUsers.Add(auth, GetUser(user.Username));
+						return auth;
+					}
 					else
 						return null;
 				}
@@ -126,36 +143,37 @@ namespace Procrastinator
 		/// <param name="year">Year of the event</param>
 		/// <param name="month">Month of the event</param>
 		/// <returns>list of events</returns>
-		public static Event[] GetEventsFrom(int year, int month) //TODO: adjust this
+		public static Event[] GetEventsFromMonth(int year, int month, long userID)
 		{
-			String s = "" + year + "," + month;
-			DateTime searchable = Convert.ToDateTime(s);
-			List<Event> Events = new List<Event>();
+			DateTime date = new DateTime(year, month, 1);
+			List<Event> events = new List<Event>();
 			using (var con = GetConnection())
 			{
 				using (var cmd = con.CreateCommand())
 				{
-					cmd.CommandText = $"SELECT * FROM {DBCredentials.DB_eventTable} WHERE eventDate='{searchable}'";
+					cmd.CommandText = $"SELECT * FROM {DBCredentials.DB_eventTable} WHERE userid = '{userID}' AND eventDate >='{date.ToShortDateString()}'::date AND eventDate <'{date.AddMonths(1).ToShortDateString()}'::date";
 					using (var reader = cmd.ExecuteReader())
 					{
 						if (!reader.HasRows)
-							return null;
-						reader.Read();
-						long[] stickerIds = reader.GetValue(6) as long[];
-						Events.Add(new Event
+							return events.ToArray();
+						while (reader.Read())
 						{
-							Id = reader.GetInt64(4),
-							UserId = reader.GetInt64(7),
-							Name = reader.GetString(0),
-							Date = reader.GetDateTime(1),
-							EndDate = reader.GetDateTime(5),
-							AllDay = reader.GetBoolean(2),
-							Description = reader.GetString(3),
-							Style = (Event.EventStyle)Enum.Parse(typeof(Event.EventStyle), reader.GetString(9), true),
-							Color = reader.GetString(8),
-							Stickers = GetStickers(stickerIds)
-						});
-						return Events.ToArray();
+							long[] stickerIds = reader.GetValue(6) as long[];
+							events.Add(new Event
+							{
+								Id = reader.GetInt64(4),
+								UserId = reader.GetInt64(7),
+								Name = reader.GetString(0),
+								Date = reader.GetDateTime(1),
+								EndDate = reader.GetDateTime(5),
+								AllDay = reader.GetBoolean(2),
+								Description = reader.GetString(3),
+								Style = (Event.EventStyle)Enum.Parse(typeof(Event.EventStyle), reader.GetString(9), true),
+								Color = reader.GetString(8),
+								Stickers = GetStickers(stickerIds)
+							});
+						}
+						return events.ToArray();
 					}
 				}
 			}
@@ -168,21 +186,20 @@ namespace Procrastinator
 		/// <param name="month">Month of the event</param>
 		/// <param name="day">Day of the event</param>
 		/// <returns>List of events</returns>
-		public static Event[] GetEventsFrom(int year, int month, int day)
+		public static Event[] GetEventsFromDay(int year, int month, int day, long userId)
 		{
-			String s = "" + year + "," + month + "," + day;
-			DateTime searchable = Convert.ToDateTime(s);
+			DateTime date = new DateTime(year, month, day);
 			List<Event> events = new List<Event>();
 
 			using (var con = GetConnection())
 			{
 				using (var cmd = con.CreateCommand())
 				{
-					cmd.CommandText = $"SELECT * FROM {DBCredentials.DB_eventTable} WHERE eventDate='{searchable}'";
+					cmd.CommandText = $"SELECT * FROM {DBCredentials.DB_eventTable} WHERE userid = '{userId}' AND eventDate >='{date.ToShortDateString()}'::date AND eventDate < '{date.AddDays(1).ToShortDateString()}'::date";
 					using (var reader = cmd.ExecuteReader())
 					{
 						if (!reader.HasRows)
-							return null;
+							return events.ToArray();
 						while (reader.Read())
 						{
 							long[] stickerIds = reader.GetValue(6) as long[];
@@ -217,10 +234,16 @@ namespace Procrastinator
 			{
 				using (var cmd = con.CreateCommand())
 				{
-					theEvent.Id = GenerateID();
-					cmd.CommandText = $"INSERT INTO {DBCredentials.DB_eventTable} (eventname,eventDate, allday, eventdescription, eventid, eventenddate, {(theEvent.Stickers == null ? "" : "stickers,")} eventstyle, userid, color)  " +
-						$" VALUES('{Uri.EscapeDataString(theEvent.Name)}', '{theEvent.Date}', '{theEvent.AllDay}', '{Uri.EscapeDataString(theEvent.Description)}', '{theEvent.Id}', '{theEvent.EndDate}', {(theEvent.Stickers == null ? "" : $"'{ theEvent.Stickers.ToArrayLiteral()}',")} '{theEvent.Style}', '{theEvent.UserId}', '{Uri.EscapeDataString(theEvent.Color)}')";
-					cmd.ExecuteNonQuery();
+					try
+					{
+						theEvent.Id = GenerateID();
+						cmd.CommandText = $"INSERT INTO {DBCredentials.DB_eventTable} (eventname,eventDate, allday, eventdescription, eventid, eventenddate, stickers, eventstyle, userid, color)  " +
+							$" VALUES('{Uri.EscapeDataString(theEvent.Name)}', '{theEvent.Date}', '{theEvent.AllDay}', '{Uri.EscapeDataString(theEvent.Description ?? "")}', '{theEvent.Id}', '{theEvent.EndDate}', '{theEvent.Stickers.ToArrayLiteral()}', '{theEvent.Style}', '{theEvent.UserId}', '{Uri.EscapeDataString(theEvent.Color ?? "")}')";
+						cmd.ExecuteNonQuery();
+					}catch(Exception e)
+					{
+						Console.Write(e.StackTrace);
+					}
 					return theEvent;
 				}
 			}
@@ -437,7 +460,7 @@ namespace Procrastinator
 					{
 						Id = GenerateID()
 					};
-					cmd.CommandText = $"INSERT INTO {DBCredentials.DB_userTable} VALUES ('{newUser.Id}', '{Uri.EscapeDataString(user.Username)}', '{HashPassword(user.Password)}')";
+					cmd.CommandText = $"INSERT INTO {DBCredentials.DB_userTable} VALUES ('{newUser.Id}', '{Uri.EscapeDataString(user.Username)}', '{HashPassword(user.Password)}', '{{{string.Join(",", newUser.Claims)}}}')";
 					cmd.ExecuteNonQuery();
 					return newUser;
 				}
@@ -461,7 +484,35 @@ namespace Procrastinator
 						reader.Read();
 						return new User(Uri.UnescapeDataString(reader.GetString(1)))
 						{
-							Id = id
+							Id = id,
+							UserName = Uri.UnescapeDataString(reader.GetString(1)),
+							Claims = (string[])reader.GetValue(3)
+						};
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Retreive a User
+		/// </summary>
+		/// <param name="id">The Username</param>
+		/// <returns>The retreived User</returns>
+		public static User GetUser(string username)
+		{
+			using (var con = GetConnection())
+			{
+				using (var cmd = con.CreateCommand())
+				{
+					cmd.CommandText = $"SELECT * FROM {DBCredentials.DB_userTable} WHERE username='{Uri.EscapeDataString(username)}'";
+					using (var reader = cmd.ExecuteReader())
+					{
+						reader.Read();
+						return new User(Uri.UnescapeDataString(reader.GetString(1)))
+						{
+							Id = reader.GetInt64(0),
+							UserName = username,
+							Claims = (string[])reader.GetValue(3)
 						};
 					}
 				}

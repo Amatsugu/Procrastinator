@@ -40,12 +40,42 @@ $(function(){
 		month: today.getMonth(),
 		day: today.getDate()
 	});
+	
+});
+
+function ShowCreateEvent(selectedDate)
+{
 	$.ajax({
 		url:"/res/frame/createEvent.html"
 	}).done(function(e){
 		OpenWindow(e, "Create Event");
+		ReadyCreateForm();
+		var startDay = $("input[name=startDate]");
+		var endDay = $("input[name=endDate]");
+		var startTime = $("input[name=startTime]");
+		var endTime = $("input[name=endTime]");
+		startDay.val(selectedDate.getFullYear() + "-" + formatNumber(selectedDate.getMonth(), 2) + "-" + formatNumber(selectedDate.getDate(), 2));
+		endDay.val(selectedDate.getFullYear() + "-" + formatNumber(selectedDate.getMonth(), 2) + "-" + formatNumber(selectedDate.getDate(), 2));
+		var now = new Date();
+		var end = now.getHours() + 1;
+		if(end >= 24)
+		{
+			end = 0;	
+		}
+		startTime.val(formatNumber(now.getHours(), 2) + ":" + formatNumber(now.getMinutes(), 2) + ":" + "00");
+		endTime.val(formatNumber(end, 2) + ":" + formatNumber(now.getMinutes(), 2) + ":" + "00");
 	});
-});
+}
+
+function formatNumber(num, len)
+{
+	var n = num.toString();
+	while(n.length < len)
+	{
+		n = "0" + n;
+	}
+	return n;
+}
 
 
 function renderCal(targetMonth){
@@ -119,6 +149,8 @@ function getMonthLength(month){
 	return monthLengths[month];
 }
 
+var selectedDay;
+
 function tileClick(e)
 {
 	var t = $(e.currentTarget);
@@ -126,23 +158,64 @@ function tileClick(e)
 		var targetDay = t.children(".day").text();
 		var targetMonth = thisMonth.getMonth();
 		var targetYear =  thisMonth.getFullYear();
-		$(".selectedTile").removeClass("selectedTile");
-		t.addClass("selectedTile");
-		console.log(targetDay);
-		populateSidePanel({
-			year: targetYear,
-			month: targetMonth,
-			day: targetDay
-		});
-		//TODO: Request Date
+		if(t.hasClass("selectedTile"))
+		{
+			ShowCreateEvent(new Date(targetYear, targetMonth, targetDay));
+		}else
+		{
+			$(".selectedTile").removeClass("selectedTile");
+			t.addClass("selectedTile");
+			console.log(targetDay);
+			selectedDay = {
+				year: targetYear,
+				month: targetMonth,
+				day: targetDay
+			};
+			populateSidePanel(selectedDay);
+		}
 	}
 }
 
 function populateSidePanel(date)
 {
-	GetEventsFrom(date, function(e){
-		console.log(e);
+	selectedDay = date;
+	GetEventsFrom(date, function(e)
+	{
 		if(e.error)
+		{
 			sidePanel.html("<div class='info'>An Error Occured: " + e.errorMessage + "</div>");
+		}
+		console.log(e.data);
+		if(e.data.length == 0)
+		{
+			sidePanel.html("<div class='info'>There are no events!</div>");
+		}else
+		{
+			sidePanel.html("");
+			for(var i = 0; i < e.data.length; i++)
+			{
+				var ev = eventElement.clone().appendTo(sidePanel);
+				var header = ev.children(".header");
+				header.children(".name").text(e.data[i].name);
+				var date = new Date(Date.parse(e.data[i].date));
+				console.log(date.toTimeString());
+				if(e.data[i].allDay)
+				{
+					header.children(".time").text("All Day");
+				}else
+				{
+					var m = date.getMinutes();
+					var o = "AM";
+					var h = date.getHours();
+					if(h > 12)
+					{
+						h -= 12;
+						o = "PM";
+					}
+					header.children(".time").text(h + ":" + m + " " + o);
+				}
+				ev.children(".body").text(e.data[i].description);
+			}
+		}
 	});
 }

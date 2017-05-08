@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Procrastinator.Modules
 {
-	public class CreateEventModule : NancyModule
+	public class RegisterModule : NancyModule 
 	{
-		public CreateEventModule() : base("/create")
+		public RegisterModule() : base("/register")
 		{
-			Get["/"] = args =>
+			Get["/"] = _ =>
 			{
-				return View["createEvent", new { user = Context.CurrentUser }];
+				return View["register"];
 			};
 		}
 	}

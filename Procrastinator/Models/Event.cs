@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace Procrastinator.Models
@@ -36,19 +37,29 @@ namespace Procrastinator.Models
 			Style = EventStyle.Basic;
 			EndDate = eventDate;
 			AllDay = false;
-			Description = null;
+			Description = "";
 			Style = EventStyle.Basic;
-			Color = null;
+			Color = "#fff";
 			Stickers = null;
 		}
 
-		/*public bool AreSameEvent(Event e)
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+				return false;
+			if (obj.GetType() != typeof(Event))
+				return false;
+			var e = (Event)obj;
+			return Equals(e);
+		}
+
+		public bool Equals(Event e)
 		{
 			if (Id == e.Id
 				&& UserId == e.UserId
 				&& Name == e.Name
-				&& Date == e.Date
-				&& EndDate == e.EndDate
+				&& Date.Equals(e.Date)
+				&& EndDate.Equals(e.EndDate)
 				&& AllDay == e.AllDay
 				&& Description == e.Description
 				&& Style == e.Style
@@ -57,7 +68,31 @@ namespace Procrastinator.Models
 				return true;
 			else
 				return false;
-		}*/
+		}
+
+		public override int GetHashCode()
+		{
+			return Id.GetHashCode();
+		}
+
+		public static bool operator ==(Event a, Event b)
+		{
+			if (ReferenceEquals(a, b))
+				return true;
+			if ((a == null) || (b == null))
+				return false;
+			return a.Equals(b);
+		}
+
+		public static bool operator !=(Event a, Event b)
+		{
+			return !(a == b);
+		}
+
+		public override string ToString()
+		{
+			return $"{Name}, ID:[{Id}, {UserId}], Date:[{Date}, {EndDate}], Allday:{AllDay}, Description: [{Description}], Color:{Color}, Style:[{Style}], Stickers:{JsonConvert.SerializeObject(Stickers)}";
+		}
 	}
 
 	public class EventNotFoundExeception : Exception
