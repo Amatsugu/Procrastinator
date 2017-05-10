@@ -11,6 +11,8 @@ namespace Procrastinator.Modules
 {
 	public class IndexModule : NancyModule
 	{
+		private static Random Rand = new Random();
+
 		public IndexModule()
 		{
 			StatelessAuthentication.Enable(this, ProcrastinatorCore.StatelessConfig);
@@ -18,10 +20,7 @@ namespace Procrastinator.Modules
 			Get["/"] = _ =>
 			{
 				Console.WriteLine(Context?.CurrentUser?.UserName);
-				if (Context.CurrentUser == null)
-					return View["login"];
-				else
-					return View["index", new { user = Context.CurrentUser }];
+				return View["index", new { user = Context.CurrentUser, bgid = Rand.Next(7) }];
 			};
 		}
 	}

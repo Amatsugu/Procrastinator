@@ -27,10 +27,10 @@
 	/*Shadow*/
 	--shadowColor:rgba(0, 0, 0, .2);
 	/*border*/
-	--borderColor:rgba(255, 255, 255, .2);
+	--borderColor:rgba(255, 255, 255, .5);
 	/*Link*/
-	--linkColor:rgb(200, 200, 200);
-	--linkColorVisited:rgb(200, 200, 200);
+	--linkColor:rgb(255, 255, 255);
+	--linkColorVisited:rgb(255, 255, 255);
 	--linkColorHover:rgb(227, 88, 188);
 	/*Form*/
 	--formBgColor:rgba(200, 200, 200, .5);

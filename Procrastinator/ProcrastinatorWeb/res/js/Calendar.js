@@ -5,12 +5,19 @@ var calPanel;
 var today = new Date();
 var dateDisplay;
 var calTile;
+var hasTriggered = false;
+var calPanelHead;
+var sidePanelHead;
+var theWindow;
 $(function(){
 	//Cache Elements
 	calTile = $(".calTile");
 	dateDisplay = $("#datePanel");
 	calPanel = $("#calPanel");
+	calPanelHead = $("#calHeader");
 	sidePanel = $("#sidePanel");
+	sidePanelHead = $("#sidePanelTitle");
+	theWindow = $(window);
 	//Ready Calendar
 	calTile.remove();
 	eventElement = $(".event").remove();
@@ -19,21 +26,64 @@ $(function(){
 		console.log(e.deltaY);
 		if(e.deltaY == 0)
 			return;
+		hasTriggered = false;
 		var tiles = $(".calTile");
-		var hasTriggered = false;
-		tiles.fadeOut(500, function(){
+		tiles.fadeOut(500, function()
+		{
 			tiles.remove();
-			if(hasTriggered)
-				return;
-			hasTriggered = true;
-			var m = thisMonth.getMonth() - e.deltaY;
-			var y = thisMonth.getFullYear();
-			if(thisMonth.getMonth() - e.deltaY > 12)
-				y++;
-			var tDate = new Date(y, m, 1);
-			renderCal(tDate);
+			scrollCal(e.deltaY);
 		});
 		e.preventDefault();
+	});
+	$("#mainPanel").swipe({
+		swipe:function(e, d, di, du, fc, fd)
+		{
+			console.log(d);
+			if(d == "up")
+			{
+				hasTriggered = false;
+				var tiles = $(".calTile");
+				tiles.fadeOut(500, function()
+				{
+					tiles.remove();
+					scrollCal(-1);
+				});
+				e.preventDefault();
+			}
+			else if(d == "down")
+			{
+				hasTriggered = false;
+				var tiles = $(".calTile");
+				tiles.fadeOut(500, function()
+				{
+					tiles.remove();
+					scrollCal(1);
+				});
+				e.preventDefaul
+			}else if(d == "left")
+			{	
+				switchPanel(2);
+			}else if(d == "right")
+			{
+				switchPanel(1);
+			}
+		}
+	});
+	theWindow.resize(function()
+	{
+		if(theWindow.width() > 1030)
+		{
+			sidePanel.show();
+			sidePanelHead.show();
+			calPanel.show();
+			calPanelHead.show();
+		}/*else
+		{
+			sidePanel.hide();
+			sidePanelHead.hide();
+			calPanel.show();
+			calPanelHead.show();
+		}*/
 	});
 	populateSidePanel({
 		year: today.getFullYear(),
@@ -42,6 +92,45 @@ $(function(){
 	});
 	
 });
+
+function switchPanel(panel)
+{
+	//console.log($(window).width());
+	if(theWindow.width() > 1030)
+	{
+		return;
+	}
+	console.log(panel);
+	if(panel == 2)
+	{
+		calPanel.fadeOut();
+		calPanelHead.fadeOut(function(){
+			sidePanel.fadeIn();
+			sidePanelHead.fadeIn();
+		});
+	}else
+	{
+		sidePanel.fadeOut();
+		sidePanelHead.fadeOut(function(){
+			calPanel.fadeIn();
+			calPanelHead.fadeIn();
+		});
+	}
+}
+
+function scrollCal(dir)
+{
+	console.log(hasTriggered);
+	if(hasTriggered)
+		return;
+	hasTriggered = true;
+	var m = thisMonth.getMonth() - dir;
+	var y = thisMonth.getFullYear();
+	if(thisMonth.getMonth() - dir > 12)
+		y++;
+	var tDate = new Date(y, m, 1);
+	renderCal(tDate);
+};
 
 function ShowCreateEvent(selectedDate)
 {
@@ -206,7 +295,7 @@ function populateSidePanel(date)
 				{
 					var m = date.getMinutes();
 					var o = "AM";
-					var h = date.getHours();
+					var h = date.getHours() + 1;
 					if(h > 12)
 					{
 						h -= 12;
@@ -215,6 +304,7 @@ function populateSidePanel(date)
 					header.children(".time").text(h + ":" + m + " " + o);
 				}
 				ev.children(".body").text(e.data[i].description);
+				ev.fadeIn();
 			}
 		}
 	});

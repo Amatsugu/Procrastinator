@@ -45,3 +45,30 @@
 {
 	border-radius:0;
 }
+
+
+#windowContainer #window
+{
+	width: 100%;
+	min-width: 0px;
+	border-radius: 0;
+}
+
+
+#wrapper #logoBox #text
+{
+	padding-left: 5px;
+	font-size: 24px;
+}
+
+
+#wrapper #userBox #userInfo #name
+{
+	font-size: 15px;
+	font-weight: 300;
+}
+
+#wrapper #userBox #userInfo #logout
+{
+	font-size: 10px;
+}

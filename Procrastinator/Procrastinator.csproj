@@ -172,6 +172,7 @@
     <Compile Include="Modules\AuthModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Modules\RegisterModule.cs" />
+    <Compile Include="Modules\UserModule.cs" />
     <Compile Include="ProcrastinatorCore.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

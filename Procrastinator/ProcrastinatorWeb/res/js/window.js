@@ -9,6 +9,11 @@ $(function()
 	win = $("#windowContainer");
 	blackout = $("#blackout");
 	blackout.click(closeWindow);
+	win.click(function(e)
+	{
+		if(win.is(e.target))
+			closeWindow();
+	});
 	$("#window #closeButton").click(closeWindow);
 });
 

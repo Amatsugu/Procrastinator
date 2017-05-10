@@ -38,6 +38,7 @@ a:visited
 
 #wrapper #logoBox
 {
+	filter: drop-shadow(0 0 5px rgba(0,0,0, 1));
 	position: absolute;
 	left: 5%;
 	top:20px;
@@ -49,6 +50,8 @@ a:visited
 {
 	height: inherit;
 	width: 64px;
+	border-radius: 50%;
+	overflow: hidden;
 }
 
 #wrapper #logoBox #text
@@ -64,6 +67,7 @@ a:visited
 
 #wrapper #userBox
 {
+	filter: drop-shadow(0 0 5px rgba(0,0,0, 1));
 	position: absolute;
 	right: 5%;
 	top:20px;
@@ -78,6 +82,8 @@ a:visited
 	height: 64px;
 	width: 64px;
 	grid-row: 1;
+	border-radius: 50%;
+	overflow: hidden;
 }
 
 #wrapper #userBox #userInfo
@@ -91,6 +97,7 @@ a:visited
 	flex-direction: column;
 	justify-content:center;
 	align-content: center;
+	
 }
 
 #wrapper #userBox #userInfo #name
@@ -107,7 +114,6 @@ a:visited
 
 #wrapper #background
 {
-	background-image: var(--bgImage);
 	background-repeat: no-repeat;
 	background-position: center;
 	left: 0px;
@@ -127,11 +133,10 @@ a:visited
 	padding: 10px;
 	border-radius: calc(2 * var(--borderRadius));
 	
-	background-image:var(--bgImageBlur);
 	background-repeat:no-repeat;
 	background-position: center;
-	/*@include background-size(cover);*/
 	background-attachment: fixed;
+	/*@include background-size(cover);*/
 	/*filter: blur(40px);
 	@include background-image(linear-gradient(0deg, rgba(88, 188, 227, 1), rgba(88, 188, 227, 1)), url(/res/img/bg/Rose.png));*/
 }
@@ -179,13 +184,19 @@ a:visited
 #windowContainer #window
 {
 	width: 50%;
-	box-shadow: 0px 0px 20px var(--shadowColor);	
+	min-width: 850px;
+	border-radius: var(--borderRadius);
+	box-shadow: 0px 0px 20px var(--shadowColor);
+	background-repeat:no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	overflow: hidden;
 }
 
 #windowContainer #window #windowHeader
 {
-	border-top-left-radius: var(--borderRadius);
-	border-top-right-radius: var(--borderRadius);
+	/*border-top-left-radius: var(--borderRadius);
+	border-top-right-radius: var(--borderRadius);*/
 	background-color: var(--titleBgColor);
 	height: 30px;
 	display: grid;
@@ -229,9 +240,23 @@ a:visited
 
 #windowContainer #window #windowContent
 {
-	background-color: var(--bgColor);
+	/*background-color: rgba(39, 39, 39, 0.25);*/
 	padding: 20px;
-	border-radius: var(--borderRadius);
+	/*border-radius: var(--borderRadius);*/
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;	
+}
+
+#windowContent label
+{
+	filter: drop-shadow(0 0 5px rgba(0, 0, 0, .5));
+}
+
+input::-webkit-input-placeholder
+{
+	color:#fff;
+}
+textarea::-webkit-input-placeholder
+{
+	color:#fff;
 }

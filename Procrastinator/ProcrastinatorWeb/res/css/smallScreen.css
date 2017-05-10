@@ -23,3 +23,20 @@
 	display: none;
 }
 
+#windowContainer #window
+{
+	width: 80%;
+	min-width: 0px;
+}
+
+#mainPanel #sidePanelTitle
+{
+	grid-column: 1;
+	grid-row: 2;
+}
+
+#mainPanel #sidePanel
+{
+	grid-column: 1;
+	grid-row: span 3;
+}

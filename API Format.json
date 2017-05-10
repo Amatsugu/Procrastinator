@@ -1,3 +1,4 @@
+[
 //Event
 {
 	"id":0, //long,
@@ -10,22 +11,23 @@
 	"eventType":"basic", //Enum
 	"eventColor":"#fffff", //HexColor
 	"stickers": [] //long[]
-}
+},
 
 //Sticker
 {
 	"id":0, //long
 	"name":"sticker name", //String
 	"url":"/stickers/0.png" //String
-}
+},
 
 //User
 {
 	"id":0, //long
-	"name":"username", //String
-	"displayName":"dipaly name", //String
+	"username":"username", //String
 	"claims": [] //String[]
 }
+
+]
 
 GET "/api/event/all"  >> event[], STATUS:200,401,404
 GET "/api/sticker/{id}" >> sticker, STATUS:200,401,404

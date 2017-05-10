@@ -2,7 +2,7 @@
 
 #pageWrap
 {
-	background: var(--bgImage);
+	background-image: url(/res/img/bg/BG4.jpg);
 	background-position: center;
 	background-attachment: fixed;
 	margin: 0;
@@ -17,10 +17,12 @@
 	align-items: center;
 }
 
-img
+#logoImg
 {
 	height: 64px;
-	widows: 64px;
+	width: 64px;
+	border-radius: 50%;
+	overflow: hidden;
 }
 
 #logo
@@ -41,7 +43,7 @@ img
 #loginBlurBg
 {
 	border-radius: calc(2 * var(--borderRadius));
-	background-image:var(--bgImageBlur);
+	background-image: url(/res/img/bg/BG4Blur.jpg);
 	background-repeat:no-repeat;
 	background-position: center;
 	background-attachment: fixed;
