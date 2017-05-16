@@ -1,4 +1,5 @@
 [
+	
 //Event
 {
 	"id":0, //long,
@@ -7,13 +8,13 @@
 	"eventDate":"start date", //Date
 	"eventEndDate":"end date", //Date
 	"allDay": false, //bool
-	"eventDescription":"description", //Sting
+	"eventDescription":"description", //String
 	"eventType":"basic", //Enum
-	"eventColor":"#fffff", //HexColor
-	"stickers": [] //long[]
+	"eventColor":"#fffff" //HexColor
 },
 
 //Sticker
+	"stickers": [] //long[]
 {
 	"id":0, //long
 	"name":"sticker name", //String
