@@ -15,7 +15,7 @@ namespace Procrastinator
 {
 	public static class ProcrastinatorCore
 	{
-		public const string HOST = "karuta.kaisei.app";
+		public const string HOST = "kaisei.app";
 
 
 		private static Dictionary<string, IUserIdentity> loggedInUsers = new Dictionary<string, IUserIdentity>();

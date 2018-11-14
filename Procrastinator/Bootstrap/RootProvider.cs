@@ -1,6 +1,7 @@
 ﻿using Nancy;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Procrastinator.Bootstrap
 	{
 		public string GetRootPath()
 		{
-			return @"C:\Users\Karuta\Documents\GitHub\Procrastinator\Procrastinator";
+			return Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 		}
 	}
 #endif
